@@ -1,0 +1,36 @@
+<div class="main">
+  <div class="sidenav">
+    <div class="login-main-text">
+      <h2 class="display-4">HumanResource<br>Management <br>System </h2>
+      <br>
+      <p>Login from here to access.</p>
+    </div>
+  </div>
+<div class="container">
+  <h1>Login Form</h1>
+
+  <form #loginform="ngForm" (ngSubmit)="loginUser()">
+    <small class="text-danger">{{msg}}</small>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter Email Id" name="email"
+        [(ngModel)]="user.email" required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" [class.is-invalid]="email.invalid && email.touched">
+      <!-- <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email id is required field</small> -->
+   <div *ngIf="email.errors && (email.invalid && email.touched)">
+     <small class="text-danger" *ngIf="email.errors?.['required']">Email id is required field</small>
+     <small class="text-danger" *ngIf="email.errors?.['pattern']">Enter the Valid Email id</small>
+   </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password"
+        [(ngModel)]="user.password" required #password="ngModel" [class.is-invalid]="password.invalid && password.touched">
+        <small class="text-danger" [class.d-none]="password.valid || password.untouched">password is required field</small>
+    </div><br>
+    
+    <button type="submit" class="btn btn-primary" [disabled]="loginform.form.invalid">Log In</button>
+  </form>
+  <!-- both way it work -->
+  <!-- <small (click)="gotoregistration()">New user ? Register here</small> -->
+  
+</div>

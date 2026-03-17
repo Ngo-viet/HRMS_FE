@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav hidden-xs">
+                <div class="logo">
+                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
+                </div>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
+                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
+                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
+                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
+                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
+                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
+                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
+                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
+                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
+
+                </ul><br>
+
+            </div>
+            <br>
+
+            <div class="col-sm-9">
+                <div class="well">
+
+                    <div class="card" style="width: 85rem;">
+                        <h1 style="text-align: center;"> Add New HR </h1>
+                        <div class="card-body">
+                            <form #addemployeeform="ngForm" (ngSubmit)="addHr()">
+                                <div *ngIf="not_available; else available">
+                                    <small class="text-success">{{msg}}</small>
+                                </div>
+                                <ng-template #available>
+                                    <small class="text-danger">{{msg}}</small>
+                                </ng-template>
+
+                                <div class="form">
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-1 mt-3">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                [(ngModel)]="user.email" #email="ngModel"
+                                                [class.is-invalid]="email.invalid && email.touched" plcaeholder="Enter Email Id"required>
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" name="password" id="password"
+                                                [(ngModel)]="user.password" #password="ngModel"plcaeholder="Enter Password"
+                                                [class.is-invalid]="password.invalid && password.touched" required
+                                            />
+            
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-4"
+                                        [disabled]="addemployeeform.form.invalid">Add HR</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

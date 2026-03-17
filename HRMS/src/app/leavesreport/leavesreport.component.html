@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav hidden-xs">
+                <div class="logo">
+                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
+                </div>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
+                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
+                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
+                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
+                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
+                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
+                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
+                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
+                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
+
+                </ul><br>
+
+            </div>
+            <br>
+
+            <div class="col-sm-9">
+                <div class="well">
+                    <h1>All Leave Report</h1>
+                    <table class="table">
+                        <thead>
+                            <tr class="table-primary">
+                                <th scope="col">EID</th>
+								<th scope="col">Email</th>
+                                <th scope="col">From Date</th>
+                                <th scope="col">To Date</th>
+                                <th scope="col">Reson</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let leaves of leaves" class="table-secondary">
+                                <th scope="row">{{leaves.eid}}</th>
+                                <td>{{leaves.email}}</td>
+                                <td>{{leaves.fromDate}}</td>
+                                <td>{{leaves.toDate}}</td>
+                                <td>{{leaves.leaveResone}}</td>
+                                <td>
+                                    <a routerLink="/editleaves/{{leaves.lid}}" class="glyphicon glyphicon-wrench"></a>&nbsp;&nbsp;&nbsp;
+                                    <a routerLink="/leavesreport/{{leaves.lid}}" class="glyphicon glyphicon-trash text-danger"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

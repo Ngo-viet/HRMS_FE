@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav hidden-xs">
+                <div class="logo">
+                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
+                </div>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
+                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
+                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
+                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
+                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
+                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
+                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
+                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
+                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
+
+                </ul><br>
+
+            </div>
+            <br>
+
+            <div class="col-sm-9">
+                <div class="well">
+                    <div class="card" style="width: 85rem;">
+                        <h1 style="text-align: center;"> Update Employee</h1>
+                        <div class="card-body">
+                            <form #editemployeeform="ngForm" (ngSubmit)="editEmployee()">
+                                <small class="text-success">{{msg}}</small>
+                                <div class="form">
+                                    <div class="row">
+                                        <div class="col-md-10 mt-md-1 mt-3">
+                                            <label for="id">Employee Id</label>
+                                            <input type="text" class="form-control" name="id" id="id" disabled
+                                                [(ngModel)]="employee.id" #id="ngModel"
+                                                [class.is-invalid]="id.invalid && id.touched" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-1 mt-3">
+                                            <label for="fname">First Name</label>
+                                            <input type="text" class="form-control" name="fname" id="fname"
+                                                [(ngModel)]="employee.fname" #fname="ngModel"
+                                                [class.is-invalid]="fname.invalid && fname.touched" required>
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <div class="col-md-5 mt-md-1 mt-3">
+                                            <label for="lname">Last Name</label>
+                                            <input type="text" class="form-control" name="lname" id="lname"
+                                                [(ngModel)]="employee.lname" #lname="ngModel"
+                                                [class.is-invalid]="lname.invalid && lname.touched" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                [(ngModel)]="employee.email" #email="ngModel"
+                                                [class.is-invalid]="email.invalid && email.touched" required
+                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                            <div *ngIf="email.errors && (email.invalid && email.touched)">
+                                                <small class="text-danger" *ngIf="email.errors?.['required']">Email id
+                                                    is required field</small>
+                                                <small class="text-danger" *ngIf="email.errors?.['pattern']">Enter the
+                                                    Valid Email id</small>
+                                            </div>
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="mobile">Mobile</label>
+                                            <input type="text" class="form-control" name="mobile" id="mobile" 
+                                            [(ngModel)]="employee.mobile" #mobile="ngModel"
+                                                [class.is-invalid]="mobile.invalid && mobile.touched" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label>Departments</label>
+                                            <select name="department" id="department"  class="form-control" 
+                                            [(ngModel)]="employee.department" #department="ngModel"
+                                                [class.is-invalid]="department.invalid && department.touched" required>
+                                                <option value="" selected hidden>Choose Option</option>
+                                                <option value="IT Services">IT Services</option>
+                                                <option value="Product Development">Product Development</option>
+                                                <option value="Infrastructure">Infrastructure</option>
+                                                <option value="Sales and Marketing">Sales and Marketing</option>
+                                                <option value="HR">HR</option>
+                                                <option value="Research and Development">Research and Development
+                                                </option>
+                                                <option value="Account and Finance">Account and Finance</option>
+                                            </select>
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="gender">Gender</label>
+                                            <select name="gender" id="gender"class="form-control" 
+                                            [(ngModel)]="employee.gender" #gender="ngModel"
+                                                [class.is-invalid]="gender.invalid && gender.touched" required>
+                                                <option value="" selected hidden>Choose Option</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="fullAddress">Full Address</label>
+                                            <input type="text" class="form-control" name="fullAddress" id="fullAddress"
+                                            [(ngModel)]="employee.fullAddress" #fullAddress="ngModel"
+                                            [class.is-invalid]="fullAddress.invalid && fullAddress.touched" required>
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="city">City</label>
+                                            <input type="text" class="form-control" name="city" id="city" 
+                                            [(ngModel)]="employee.city" #city="ngModel"
+                                            [class.is-invalid]="city.invalid && city.touched"required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="state">State</label>
+                                            <input type="text" class="form-control" name="state" id="state" 
+                                            [(ngModel)]="employee.state" #state="ngModel"
+                                            [class.is-invalid]="state.invalid && state.touched"required>
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <div class="col-md-5 mt-md-2 mt-3">
+                                            <label for="country">Country</label>
+                                            <input type="text" class="form-control" name="country" id="country"
+                                            [(ngModel)]="employee.country" #country="ngModel"
+                                            [class.is-invalid]="country.invalid && country.touched"required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-4"
+                                        [disabled]="editemployeeform.form.invalid">Edit Employee</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

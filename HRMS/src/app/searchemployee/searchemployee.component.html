@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav hidden-xs">
+                <div class="logo">
+                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
+                </div>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
+                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
+                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
+                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
+                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
+                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
+                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
+                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
+                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
+
+                </ul><br>
+
+            </div>
+            <br>
+
+            <div class="col-sm-9">
+                <div class="well">
+                    <h1>Search Employee </h1>
+                    <small class="text-danger">{{msg}}</small>
+                    <form>
+                        <div class="form-group">
+                            <label for="esearch" style="margin-left: 10px;">Search Employee by Email Id</label><br>
+                            <input type="text" id="esearch" name="esearch" [(ngModel)]="employee.email" #email="ngModel"
+                                placeholder="Enter Employee Email id" style="margin-left: 10px;" />
+                        </div>
+                        <button type="submit" class="btn btn-success" (click)="serachemployee()">Serach
+                            Employee</button><br>
+
+                    </form><br>
+                    <div *ngIf="available">
+                        <table class="table">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Department</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Gender</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+    
+                                <tr class="table-secondary">
+                                    <th scope="row">{{data$.id}}</th>
+                                    <td>{{data$.fname}}</td>
+                                    <td>{{data$.lname}}</td>
+                                    <td>{{data$.department}}</td>
+                                    <td>{{data$.mobile}}</td>
+                                    <td>{{data$.email}}</td>
+                                    <td>{{data$.gender}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
