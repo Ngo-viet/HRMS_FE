@@ -1,81 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><i class="fas fa-users"></i></div>
+      <h2>HRMS</h2>
+      <p>Human Resource Management</p>
+    </div>
+    <nav class="sidebar-menu">
+      <a routerLink="/dashboard" class="menu-item">
+        <i class="fas fa-chart-line"></i><span>Dashboard</span>
+      </a>
+      <a routerLink="/employeereport" class="menu-item">
+        <i class="fas fa-users-cog"></i><span>Employee Report</span>
+      </a>
+      <a routerLink="/addemployee" class="menu-item">
+        <i class="fas fa-user-plus"></i><span>Add Employee</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/leavesreport" class="menu-item">
+        <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
+      </a>
+      <a routerLink="/addleaves" class="menu-item">
+        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/salaryreport" class="menu-item active">
+        <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
+      </a>
+      <a routerLink="/addsalary" class="menu-item">
+        <i class="fas fa-coins"></i><span>Add Salary</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/addhr" class="menu-item">
+        <i class="fas fa-user-tie"></i><span>Add HR</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/logout" class="menu-item logout">
+        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+      </a>
+    </nav>
+  </aside>
 
-<head>
-    <title>Dashboard</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    </style>
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row content">
-            <div class="col-sm-2 sidenav hidden-xs">
-                <div class="logo">
-                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
-                </div>
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
-                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
-                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
-                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
-                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
-                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
-                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
-                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
-                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
-
-                </ul><br>
-
-            </div>
-            <br>
-
-            <div class="col-sm-9">
-                <div class="well">
-                    <h1>Employee Salary Report</h1>
-                    <table class="table">
-                        <thead>
-                            <tr class="table-primary">
-                                <th scope="col">EID</th>
-                                <th scope="col">Month</th>
-                                <th scope="col">Total Paid Days</th>
-                                <th scope="col">Basic</th>
-                                <th scope="col">HRA</th>
-                                <th scope="col">Total</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr *ngFor="let salary of salary" class="table-secondary">
-                                <th scope="row">{{salary.eid}}</th>
-                                <td>{{salary.month}}</td>
-                                <td>{{salary.twd}}</td>
-                                <td>{{salary.basic}}</td>
-                                <td>{{salary.hra}}</td>
-                                <td>{{salary.pay}}</td>
-                                <td>
-                                    <a routerLink="/editsalary/{{salary.sid}}" class="glyphicon glyphicon-wrench"></a>&nbsp;&nbsp;&nbsp;
-                                    <a routerLink="/salaryreport/{{salary.sid}}" class="glyphicon glyphicon-trash text-danger"></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Employee Salary Report</h1>
+      <p>View and manage employee salary information</p>
     </div>
 
+    <div class="report-container">
+      <div class="report-header">
+        <h2>Salary Records</h2>
+      </div>
 
-
-</body>
-
-</html>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th><i class="fas fa-id-badge"></i> EID</th>
+              <th><i class="fas fa-calendar"></i> Month</th>
+              <th><i class="fas fa-calendar-check"></i> Paid Days</th>
+              <th><i class="fas fa-money-bill"></i> Basic</th>
+              <th><i class="fas fa-coins"></i> HRA</th>
+              <th><i class="fas fa-calculator"></i> Total</th>
+              <th><i class="fas fa-cog"></i> Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let salary of salary">
+              <td>{{salary.eid}}</td>
+              <td>{{salary.month}}</td>
+              <td>{{salary.twd}}</td>
+              <td>{{salary.basic}}</td>
+              <td>{{salary.hra}}</td>
+              <td><strong>{{salary.pay}}</strong></td>
+              <td>
+                <a routerLink="/editsalary/{{salary.sid}}" class="action-link edit-link" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a routerLink="/salaryreport/{{salary.sid}}" class="action-link delete-link" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>

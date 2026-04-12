@@ -1,36 +1,106 @@
-<div class="main">
-  <div class="sidenav">
-    <div class="login-main-text">
-      <h2 class="display-4">HumanResource<br>Management <br>System </h2>
-      <br>
-      <p>Login from here to access.</p>
+<div class="login-container">
+  <div class="login-wrapper">
+    <!-- Left Panel -->
+    <div class="login-panel-left">
+      <div class="login-branding">
+        <div class="logo-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h1>HRMS</h1>
+        <h3>Human Resource Management System</h3>
+      </div>
+      <div class="login-features">
+        <div class="feature-item">
+          <i class="fas fa-chart-line"></i>
+          <p>Manage your team efficiently</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-clock"></i>
+          <p>Track attendance & leaves</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-money-bill"></i>
+          <p>Automated salary management</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="login-panel-right">
+      <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p class="login-subtitle">Sign in to your account</p>
+
+        <form #loginform="ngForm" (ngSubmit)="loginUser()" class="login-form">
+          <!-- Error Message -->
+          <div *ngIf="msg" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>{{msg}}</span>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-field">
+            <label for="email">
+              <i class="fas fa-envelope"></i>
+              Email Address
+            </label>
+            <input 
+              type="email" 
+              id="email" 
+              placeholder="admin@company.com" 
+              name="email"
+              [(ngModel)]="user.email" 
+              required  
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
+              #email="ngModel" 
+              [class.is-invalid]="email.invalid && email.touched">
+            <div *ngIf="email.errors && (email.invalid && email.touched)" class="error-message">
+              <small *ngIf="email.errors?.['required']"><i class="fas fa-times-circle"></i> Email is required</small>
+              <small *ngIf="email.errors?.['pattern']"><i class="fas fa-times-circle"></i> Please enter a valid email</small>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-field">
+            <label for="password">
+              <i class="fas fa-lock"></i>
+              Password
+            </label>
+            <input 
+              type="password" 
+              id="password" 
+              placeholder="••••••••" 
+              name="password"
+              [(ngModel)]="user.password" 
+              required 
+              #password="ngModel" 
+              [class.is-invalid]="password.invalid && password.touched">
+            <div *ngIf="password.errors && (password.invalid && password.touched)" class="error-message">
+              <small *ngIf="password.errors?.['required']"><i class="fas fa-times-circle"></i> Password is required</small>
+            </div>
+          </div>
+
+          <!-- Remember Me & Forgot Password -->
+          <div class="form-footer">
+            <label class="remember-me">
+              <input type="checkbox">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="login-button" [disabled]="loginform.form.invalid">
+            <span>Sign In</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="login-footer">
+          <p>&copy; 2026 HRMS. All rights reserved.</p>
+        </div>
+      </div>
     </div>
   </div>
-<div class="container">
-  <h1>Login Form</h1>
-
-  <form #loginform="ngForm" (ngSubmit)="loginUser()">
-    <small class="text-danger">{{msg}}</small>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter Email Id" name="email"
-        [(ngModel)]="user.email" required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" [class.is-invalid]="email.invalid && email.touched">
-      <!-- <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email id is required field</small> -->
-   <div *ngIf="email.errors && (email.invalid && email.touched)">
-     <small class="text-danger" *ngIf="email.errors?.['required']">Email id is required field</small>
-     <small class="text-danger" *ngIf="email.errors?.['pattern']">Enter the Valid Email id</small>
-   </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password"
-        [(ngModel)]="user.password" required #password="ngModel" [class.is-invalid]="password.invalid && password.touched">
-        <small class="text-danger" [class.d-none]="password.valid || password.untouched">password is required field</small>
-    </div><br>
-    
-    <button type="submit" class="btn btn-primary" [disabled]="loginform.form.invalid">Log In</button>
-  </form>
-  <!-- both way it work -->
-  <!-- <small (click)="gotoregistration()">New user ? Register here</small> -->
-  
 </div>

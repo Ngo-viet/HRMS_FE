@@ -1,110 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><i class="fas fa-users"></i></div>
+      <h2>HRMS</h2>
+      <p>Human Resource Management</p>
+    </div>
+    <nav class="sidebar-menu">
+      <a routerLink="/dashboard" class="menu-item">
+        <i class="fas fa-chart-line"></i><span>Dashboard</span>
+      </a>
+      <a routerLink="/employeereport" class="menu-item">
+        <i class="fas fa-users-cog"></i><span>Employee Report</span>
+      </a>
+      <a routerLink="/addemployee" class="menu-item">
+        <i class="fas fa-user-plus"></i><span>Add Employee</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/leavesreport" class="menu-item">
+        <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
+      </a>
+      <a routerLink="/addleaves" class="menu-item active">
+        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/salaryreport" class="menu-item">
+        <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
+      </a>
+      <a routerLink="/addsalary" class="menu-item">
+        <i class="fas fa-coins"></i><span>Add Salary</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/addhr" class="menu-item">
+        <i class="fas fa-user-tie"></i><span>Add HR</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/logout" class="menu-item logout">
+        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+      </a>
+    </nav>
+  </aside>
 
-<head>
-    <title>Dashboard</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    </style>
-</head>
-
-<body>
-
-    <div class="container-fluid">
-        <div class="row content">
-            <div class="col-sm-2 sidenav hidden-xs">
-                <div class="logo">
-                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
-                </div>
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
-                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
-                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
-                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
-                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
-                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
-                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
-                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
-                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
-
-                </ul><br>
-
-            </div>
-            <br>
-
-            <div class="col-sm-9">
-                <div class="well">
-                    <div class="card" style="width: 85rem;">
-                        <h1 style="text-align: center;"> Add Employee Leaves</h1>
-                        <div class="card-body">
-                            <form #addleavesform="ngForm" (ngSubmit)="addLeaves()">
-                                <div *ngIf="not_available; else available">
-                                    <small class="text-success">{{msg}}</small>
-                                </div>
-                                <ng-template #available>
-                                    <small class="text-danger">{{msg}}</small>
-                                </ng-template>
-                                <div class="form">
-                                    
-                                    <div class="row">
-                                        <div class="col-md-5 mt-md-1 mt-3">
-                                            <label for="eid">Enter Employee ID</label>
-                                            <input type="number" class="form-control" name="eid" id="eid"
-                                                [(ngModel)]="leaves.eid" #eid="ngModel"
-                                                [class.is-invalid]="eid.invalid && eid.touched" required>
-                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                        <div class="col-md-5 mt-md-1 mt-3">
-                                            <label for="leaveResone">Leave Reson</label>
-                                            <input type="text" class="form-control" name="leaveResone" id="leaveResone"
-                                                [(ngModel)]="leaves.leaveResone" #leaveResone="ngModel"
-                                                [class.is-invalid]="leaveResone.invalid && leaveResone.touched"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="fromDate">From Date</label>
-                                            <input type="date" class="form-control" name="fromDate" id="fromDate"
-                                                [(ngModel)]="leaves.fromDate" #fromDate="ngModel"
-                                                [class.is-invalid]="fromDate.invalid && fromDate.touched" required>
-                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="toDate">To Date</label>
-                                            <input type="date" class="form-control" name="toDate" id="toDate"
-                                                [(ngModel)]="leaves.toDate" #toDate="ngModel"
-                                                [class.is-invalid]="toDate.invalid && toDate.touched" required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-10 mt-md-2 mt-3">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" name="description" id="description"
-                                                [(ngModel)]="leaves.description" #description="ngModel"
-                                                [class.is-invalid]="description.invalid && description.touched">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mt-4"
-                                        [disabled]="addleavesform.form.invalid">Add Leaves</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Add Employee Leaves</h1>
+      <p>Register leave requests for employees</p>
     </div>
 
+    <div class="form-container">
+      <div class="form-wrapper">
+        <div *ngIf="!not_available" class="alert alert-success">
+          <i class="fas fa-check-circle"></i>
+          <span>{{msg}}</span>
+        </div>
+        <div *ngIf="not_available" class="alert alert-danger">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{msg}}</span>
+        </div>
 
-</body>
+        <form #addleavesform="ngForm" (ngSubmit)="addLeaves()">
+          <div class="form-group">
+            <label for="eid">Employee ID</label>
+            <input type="number" class="form-control" name="eid" id="eid"
+              [(ngModel)]="leaves.eid" #eid="ngModel"
+              [class.is-invalid]="eid.invalid && eid.touched" required
+              placeholder="Enter employee ID">
+          </div>
 
-</html>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fromDate">From Date</label>
+              <input type="date" class="form-control" name="fromDate" id="fromDate"
+                [(ngModel)]="leaves.fromDate" #fromDate="ngModel"
+                [class.is-invalid]="fromDate.invalid && fromDate.touched" required>
+            </div>
+
+            <div class="form-group">
+              <label for="toDate">To Date</label>
+              <input type="date" class="form-control" name="toDate" id="toDate"
+                [(ngModel)]="leaves.toDate" #toDate="ngModel"
+                [class.is-invalid]="toDate.invalid && toDate.touched" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="leaveResone">Leave Reason</label>
+            <input type="text" class="form-control" name="leaveResone" id="leaveResone"
+              [(ngModel)]="leaves.leaveResone" #leaveResone="ngModel"
+              [class.is-invalid]="leaveResone.invalid && leaveResone.touched" required
+              placeholder="Specify reason for leave">
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description (Optional)</label>
+            <textarea class="form-control" name="description" id="description"
+              [(ngModel)]="leaves.description" #description="ngModel"
+              placeholder="Add any additional details"
+              rows="4"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" routerLink="/dashboard">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary"
+              [disabled]="addleavesform.form.invalid">
+              <i class="fas fa-check"></i> Add Leave
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

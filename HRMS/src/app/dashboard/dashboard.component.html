@@ -1,66 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Dashboard</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS Dashboard</title>
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div class="row content">
-            <div class="col-sm-2 sidenav hidden-xs">
+    <div class="dashboard-wrapper">
+        <!-- Modern Sidebar Menu -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
                 <div class="logo">
-                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
+                    <i class="fas fa-users"></i>
                 </div>
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
-                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
-                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
-                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
-                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
-                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
-                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
-                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
-                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
-
-                </ul><br>
-
-            </div>
-            <br>
-            <div class="col-sm-10 mt-5">
-                <div class="well">
-                    <div class="card" style="width: 95rem;">
-                        <div class="heading">
-                            <h2>Human Resource Management System Admin Dashboard</h2>
-                        </div>
-
-                    </div>
-                    <div class="card mt-5" style="width: 95rem; ">
-                        <button type="button" routerLink="/employeereport" class="btn btn-secondary btn-lg mt-3">ALL
-                            Employee</button>
-
-                        <br><button type="button" routerLink="/leavesreport" class="btn btn-secondary btn-lg">Employee
-                            Leaves</button>
-                        <br><button type="button" routerLink="/searchemail" class="btn btn-secondary btn-lg">Search
-                            Employee
-                        </button>
-
-                    </div>
-                </div>
+                <h2>HRMS</h2>
+                <p>Human Resource Management</p>
             </div>
 
-        </div>
+            <nav class="sidebar-menu">
+                <a routerLink="/dashboard" class="menu-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a routerLink="/employeereport" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Employee Report</span>
+                </a>
+                <a routerLink="/addemployee" class="menu-item">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add Employee</span>
+                </a>
+                <a routerLink="/searchemail" class="menu-item">
+                    <i class="fas fa-search"></i>
+                    <span>Search Employee</span>
+                </a>
+
+                <div class="menu-divider"></div>
+
+                <a routerLink="/leavesreport" class="menu-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Leave Report</span>
+                </a>
+                <a routerLink="/addleaves" class="menu-item">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Add Leave</span>
+                </a>
+
+                <div class="menu-divider"></div>
+
+                <a routerLink="/salaryreport" class="menu-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Salary Report</span>
+                </a>
+                <a routerLink="/addsalary" class="menu-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Add Salary</span>
+                </a>
+
+                <div class="menu-divider"></div>
+
+                <a routerLink="/addhr" class="menu-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Add HR</span>
+                </a>
+
+                <a routerLink="" class="menu-item logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1>Dashboard</h1>
+                <p>Welcome to Human Resource Management System</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon employees">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Employees</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon leaves">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Leaves</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon salary">
+                        <i class="fas fa-money-bill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Salaries</h3>
+                        <p class="stat-number">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access -->
+            <div class="quick-access">
+                <h2>Quick Access</h2>
+                <div class="quick-buttons">
+                    <button type="button" routerLink="/employeereport" class="quick-btn">
+                        <i class="fas fa-list"></i>
+                        <span>View All Employees</span>
+                    </button>
+                    <button type="button" routerLink="/leavesreport" class="quick-btn">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>View Leaves</span>
+                    </button>
+                    <button type="button" routerLink="/salaryreport" class="quick-btn">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>View Salaries</span>
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
-
 </body>
-
 </html>

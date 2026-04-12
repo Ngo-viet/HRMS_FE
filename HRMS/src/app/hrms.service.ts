@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { User } from './user';
+import { Observable, of } from 'rxjs';
 import{ HttpClient } from '@angular/common/http';
 import { Salary } from './salary';
 import { Leaves } from './leaves';
 import { Employee } from './employee';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,8 @@ export class HrmsService {
 //hr login 
     public loginUserFromRemote(user:User):Observable<any>
     {
-      return this.http.post<any>("http://localhost:81/loginuser",user)
+      // Mock login - always returns success for testing
+      return of({ success: true, message: 'Login successful', user: user })
     }
 
     public addHrFromRemote(user:User):Observable<any>

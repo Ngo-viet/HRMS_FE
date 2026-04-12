@@ -12,4 +12,12 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void {
+    // Clear session/local storage if needed
+    localStorage.clear();
+    sessionStorage.clear();
+    // Redirect to login
+    window.location.href = '/login';
+  }
+
 }

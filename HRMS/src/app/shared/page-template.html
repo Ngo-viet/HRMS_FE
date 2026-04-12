@@ -1,3 +1,4 @@
+<!-- Modern form page template with sidebar -->
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -26,7 +27,7 @@
         <span>Search Employee</span>
       </a>
       <div class="menu-divider"></div>
-      <a routerLink="/leavesreport" class="menu-item active">
+      <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar"></i>
         <span>Leave Report</span>
       </a>
@@ -56,43 +57,6 @@
   </aside>
 
   <main class="main-content">
-    <div class="page-header">
-      <h1>Leave Report</h1>
-      <p>Manage and view all employee leaves</p>
-    </div>
-
-    <div class="report-container">
-      <div class="table-wrapper">
-        <table class="table">
-          <thead>
-            <tr class="table-header">
-              <th>EID</th>
-              <th>Email</th>
-              <th>From Date</th>
-              <th>To Date</th>
-              <th>Reason</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let leaves of leaves">
-              <td>{{leaves.eid}}</td>
-              <td>{{leaves.email}}</td>
-              <td>{{leaves.fromDate}}</td>
-              <td>{{leaves.toDate}}</td>
-              <td>{{leaves.leaveResone}}</td>
-              <td>
-                <a routerLink="/editleaves/{{leaves.lid}}" class="action-link edit">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a (click)="deleteLeaves(leaves.lid)" class="action-link delete">
-                  <i class="fas fa-trash"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <!-- Content goes here -->
   </main>
 </div>

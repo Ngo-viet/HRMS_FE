@@ -21,6 +21,19 @@ export class EmployeereportComponent implements OnInit {
 
 
   //i want to access all employee and display at beggining
+  deleteEmployee(id: number): void {
+    this.service.deleteEmployeeFromRemote(id).subscribe(data => 
+      {
+      console.log("Employee Deleted Successfully ")
+       this.router.navigate(['employeereport']);
+      },
+      error => 
+      {
+        console.log("exception occured");
+      }
+    )
+  }
+
   ngOnInit(): void {
 
     //subscribe is call back method which give you data
@@ -32,20 +45,8 @@ export class EmployeereportComponent implements OnInit {
       if(this.id!=undefined)
       {
         console.log("id from button "+this.id)
-      this.service.deleteEmployeeFromRemote(this.id).subscribe(data => 
-      {
-      console.log("Employee Deleted Successfully ")
-       this.router.navigate(['employeereport']);
-      },
-      error => 
-      {
-        console.log("exception occured");
-        
+      this.deleteEmployee(this.id);
       }
-    )
-      }
-      
-    
 
   }
 

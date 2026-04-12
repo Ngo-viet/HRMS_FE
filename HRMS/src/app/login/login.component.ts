@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router,Route } from '@angular/router';
+import { Router, Route } from '@angular/router';
 import { HrmsService } from '../hrms.service';
 import { User } from '../user';
 import { ConnectableObservable } from 'rxjs';

@@ -1,150 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><i class="fas fa-users"></i></div>
+      <h2>HRMS</h2>
+      <p>Human Resource Management</p>
+    </div>
+    <nav class="sidebar-menu">
+      <a routerLink="/dashboard" class="menu-item">
+        <i class="fas fa-chart-line"></i><span>Dashboard</span>
+      </a>
+      <a routerLink="/employeereport" class="menu-item">
+        <i class="fas fa-users-cog"></i><span>Employee Report</span>
+      </a>
+      <a routerLink="/addemployee" class="menu-item">
+        <i class="fas fa-user-plus"></i><span>Add Employee</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/leavesreport" class="menu-item">
+        <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
+      </a>
+      <a routerLink="/addleaves" class="menu-item">
+        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/salaryreport" class="menu-item">
+        <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
+      </a>
+      <a routerLink="/addsalary" class="menu-item">
+        <i class="fas fa-coins"></i><span>Add Salary</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/addhr" class="menu-item">
+        <i class="fas fa-user-tie"></i><span>Add HR</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/logout" class="menu-item logout">
+        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+      </a>
+    </nav>
+  </aside>
 
-<head>
-    <title>Dashboard</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    </style>
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row content">
-            <div class="col-sm-2 sidenav hidden-xs">
-                <div class="logo">
-                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
-                </div>
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
-                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
-                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
-                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
-                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
-                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
-                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
-                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
-                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
-
-                </ul><br>
-
-            </div>
-            <br>
-
-            <div class="col-sm-9">
-                <div class="well">
-                    <div class="card" style="width: 85rem;">
-                        <h1 style="text-align: center;">Update Salary Details</h1>
-                        <div class="card-body">
-                            <form #editSalaryform="ngForm" (ngSubmit)="editSalary()">
-                                <div class="form">
-                                    <small class="text-success">{{msg}}</small>
-                                    <div class="row">
-                                        <div class="col-md-5 mt-md-1 mt-3">
-                                            <label for="eid">Enter Employee ID</label>
-                                            <input type="text" class="form-control" name="eid" id="eid" 
-                                            [(ngModel)]="salary.eid" #eid="ngModel"
-                                            [class.is-invalid]="eid.invalid && eid.touched" disabled required>
-                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label>Select Month</label>
-                                            <select id="month" name="month" class="form-control" 
-                                            [(ngModel)]="salary.month" #month="ngModel"
-                                            [class.is-invalid]="month.invalid && month.touched" required>
-                                                <option value="" selected hidden>Choose Option</option>
-                                                <option value="January">January</option>
-                                                <option value="February">February</option>
-                                                <option value="March">March</option>
-                                                <option value="April">April</option>
-                                                <option value="May">May</option>
-                                                <option value="June">June</option>
-                                                <option value="July">July</option>
-                                                <option value="August">August</option>
-                                                <option value="September">September</option>
-                                                <option value="Octomber">Octomber</option>
-                                                <option value="November">November</option>
-                                                <option value="December">December</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="twd">Total Working Day</label>
-                                            <input type="number" class="form-control" name="twd" id="twd" min="1"
-                                                max="31"  
-                                                [(ngModel)]="salary.twd" #twd="ngModel"
-                                            [class.is-invalid]="twd.invalid && twd.touched" required>
-                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="basic">Basic Salary</label>
-                                            <input type="text" class="form-control" name="basic" id="basic" 
-                                            [(ngModel)]="salary.basic" #basic="ngModel"
-                                            [class.is-invalid]="basic.invalid && basic.touched" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="hra">Total HRA</label>
-                                            <input type="text" class="form-control" name="hra" id="hra" 
-                                            [(ngModel)]="salary.hra" #hra="ngModel"
-                                            [class.is-invalid]="hra.invalid && hra.touched" required>
-                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="ca">Conveyance Allowance</label>
-                                            <input type="text" class="form-control" name="ca" id="ca"
-                                            [(ngModel)]="salary.ca" #ca="ngModel"
-                                            [class.is-invalid]="ca.invalid && ca.touched" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="pay">Total Net Pay</label>
-                                            <input type="text" class="form-control" name="pay" id="pay" 
-                                            [(ngModel)]="salary.pay" #pay="ngModel"
-                                            [class.is-invalid]="pay.invalid && pay.touched" required>
-                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                        <div class="col-md-5 mt-md-2 mt-3">
-                                            <label for="deduction">Total Deductions</label>
-                                            <input type="text" class="form-control" name="deduction" id="deduction"
-                                            [(ngModel)]="salary.deduction" #deduction="ngModel"
-                                            [class.is-invalid]="deduction.invalid && deduction.touched" required>
-                                        </div>
-                                    </div>
-                                    
-                                    <div>
-                                        <input type="hidden" name="sid" [(ngModel)]="salary.sid" #sid="ngModel" >
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mt-4"
-                                        [disabled]="editSalaryform.form.invalid">Update Salary</button>
-                                </div>
-                    
-                            </form>
-                
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Update Salary Details</h1>
+      <p>Modify salary information for employees</p>
     </div>
 
+    <div class="form-container">
+      <div class="form-wrapper">
+        <div *ngIf="msg" class="alert alert-success">
+          <i class="fas fa-check-circle"></i>
+          <span>{{msg}}</span>
+        </div>
 
+        <form #editSalaryform="ngForm" (ngSubmit)="editSalary()">
+          <input type="hidden" name="sid" [(ngModel)]="salary.sid" #sid="ngModel">
 
-</body>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="eid">Employee ID</label>
+              <input type="text" class="form-control" name="eid" id="eid"
+                [(ngModel)]="salary.eid" #eid="ngModel"
+                [class.is-invalid]="eid.invalid && eid.touched" disabled required>
+            </div>
 
-</html>
+            <div class="form-group">
+              <label for="month">Select Month</label>
+              <select id="month" name="month" class="form-control"
+                [(ngModel)]="salary.month" #month="ngModel"
+                [class.is-invalid]="month.invalid && month.touched" required>
+                <option value="" selected hidden>Choose Month</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="twd">Total Working Days</label>
+              <input type="number" class="form-control" name="twd" id="twd" min="1" max="31"
+                [(ngModel)]="salary.twd" #twd="ngModel"
+                [class.is-invalid]="twd.invalid && twd.touched" required
+                placeholder="1-31">
+            </div>
+
+            <div class="form-group">
+              <label for="basic">Basic Salary</label>
+              <input type="text" class="form-control" name="basic" id="basic"
+                [(ngModel)]="salary.basic" #basic="ngModel"
+                [class.is-invalid]="basic.invalid && basic.touched" required
+                placeholder="Enter basic salary">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="hra">Total HRA</label>
+              <input type="text" class="form-control" name="hra" id="hra"
+                [(ngModel)]="salary.hra" #hra="ngModel"
+                [class.is-invalid]="hra.invalid && hra.touched" required
+                placeholder="Enter HRA amount">
+            </div>
+
+            <div class="form-group">
+              <label for="ca">Conveyance Allowance</label>
+              <input type="text" class="form-control" name="ca" id="ca"
+                [(ngModel)]="salary.ca" #ca="ngModel"
+                [class.is-invalid]="ca.invalid && ca.touched" required
+                placeholder="Enter conveyance allowance">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pay">Total Net Pay</label>
+              <input type="text" class="form-control" name="pay" id="pay"
+                [(ngModel)]="salary.pay" #pay="ngModel"
+                [class.is-invalid]="pay.invalid && pay.touched" required
+                placeholder="Generated automatically">
+            </div>
+
+            <div class="form-group">
+              <label for="deduction">Total Deductions</label>
+              <input type="text" class="form-control" name="deduction" id="deduction"
+                [(ngModel)]="salary.deduction" #deduction="ngModel"
+                [class.is-invalid]="deduction.invalid && deduction.touched" required
+                placeholder="Enter total deductions">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" routerLink="/salaryreport">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-primary"
+              [disabled]="editSalaryform.form.invalid">
+              <i class="fas fa-save"></i> Update Salary
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

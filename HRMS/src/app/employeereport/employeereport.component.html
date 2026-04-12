@@ -1,82 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Dashboard</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    </style>
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row content">
-            <div class="col-sm-2 sidenav hidden-xs">
-                <div class="logo">
-                    <h1 class="glyphicon glyphicon-education">HRMS </h1>
-                </div>
-
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a routerLink="/dashboard" class="glyphicon glyphicon-home"> Dashboard</a></li>
-                    <li><a routerLink="/employeereport" class="glyphicon glyphicon-signal"> Employee Report</a></li>
-                    <li><a routerLink="/addemployee" class="glyphicon glyphicon-user"> Add Employee</a></li>
-                    <li><a routerLink="/leavesreport" class="glyphicon glyphicon-list-alt"> Leaves Report</a></li>
-                    <li><a routerLink="/addleaves" class="glyphicon glyphicon-time"> Add Leaves</a></li>
-                    <li><a routerLink="/salaryreport" class="glyphicon glyphicon-stats"> Salary Report</a></li>
-                    <li><a routerLink="/addsalary" class="glyphicon glyphicon-euro"> Add Salary</a></li>
-                    <li><a routerLink="/addhr" class="glyphicon glyphicon-qrcode"> Add HR</a></li>
-                    <li><a routerLink="" class="glyphicon glyphicon-off"> Logout</a></li>
-
-                </ul><br>
-
-            </div>
-            <br>
-
-            <div class="col-sm-9">
-                <div class="well">
-                    <h1>All Employees Report</h1>
-                    <!-- <small>{{result}}</small> -->
-                    <table class="table">
-                        <thead >
-                            <tr class="table-primary">
-                                <th scope="col">ID</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Department</th>
-                                <th scope="col">Mobile</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr *ngFor="let employee of employee" class="table-secondary">
-                                <th scope="row">{{employee.id}}</th>
-                                <td>{{employee.fname}}</td>
-                                <td>{{employee.lname}}</td>
-                                <td>{{employee.department}}</td>
-                                <td>{{employee.mobile}}</td>
-                                <td>{{employee.email}}</td>
-                                <td>
-                                    <a routerLink="/editemployee/{{employee.id}}" class="glyphicon glyphicon-wrench"></a>&nbsp;&nbsp;&nbsp;
-                                    <a routerLink="/employeereport/{{employee.id}}"  class="glyphicon glyphicon-trash text-danger" ></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
+<div class="app-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-users"></i>
+      </div>
+      <h2>HRMS</h2>
+      <p>Human Resource Management</p>
     </div>
 
+    <nav class="sidebar-menu">
+      <a routerLink="/dashboard" class="menu-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/employeereport" class="menu-item active">
+        <i class="fas fa-users"></i>
+        <span>Employee Report</span>
+      </a>
+      <a routerLink="/addemployee" class="menu-item">
+        <i class="fas fa-user-plus"></i>
+        <span>Add Employee</span>
+      </a>
+      <a routerLink="/searchemail" class="menu-item">
+        <i class="fas fa-search"></i>
+        <span>Search Employee</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/leavesreport" class="menu-item">
+        <i class="fas fa-calendar"></i>
+        <span>Leave Report</span>
+      </a>
+      <a routerLink="/addleaves" class="menu-item">
+        <i class="fas fa-calendar-plus"></i>
+        <span>Add Leave</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/salaryreport" class="menu-item">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Salary Report</span>
+      </a>
+      <a routerLink="/addsalary" class="menu-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Add Salary</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/addhr" class="menu-item">
+        <i class="fas fa-user-tie"></i>
+        <span>Add HR</span>
+      </a>
+      <a routerLink="" class="menu-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
 
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Employee Report</h1>
+      <p>Manage and view all employees</p>
+    </div>
 
-</body>
-
-</html>
+    <div class="report-container">
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Department</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employee">
+              <td>{{employee.id}}</td>
+              <td>{{employee.fname}}</td>
+              <td>{{employee.lname}}</td>
+              <td>{{employee.department}}</td>
+              <td>{{employee.email}}</td>
+              <td>{{employee.contact}}</td>
+              <td>
+                <a routerLink="/editemployee/{{employee.id}}" class="action-link edit">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a (click)="deleteEmployee(employee.id)" class="action-link delete">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
