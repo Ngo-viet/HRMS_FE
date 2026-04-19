@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Employee } from '../employee/employee.model';
-import { EmployeeService } from '../shared/service/employee.service';
+import { Employee } from '../../employee/employee.model';
+import { EmployeeService } from '../../shared/service/employee.service';
 
 @Component({
   selector: 'app-searchemployee',
@@ -44,8 +44,7 @@ available:boolean= false;
         console.log("Return employee object: "+this.data$.email);
 
       },
-      (errors: any)=>
-      {
+      (errors: any)=>{
         console.log("errors");
 
       }

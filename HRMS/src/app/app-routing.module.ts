@@ -2,17 +2,17 @@ import { Component,NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { AddemployeeComponent } from './addemployee/addemployee.component';
+import { AddemployeeComponent } from './employee/addemployee/addemployee.component';
 import { AddleavesComponent } from './addleaves/addleaves.component';
 import { AddsalaryComponent } from './addsalary/addsalary.component';
-import { EmployeereportComponent } from './employeereport/employeereport.component';
+import { EmployeereportComponent } from './employee/employeereport/employeereport.component';
 import { LeavesreportComponent } from './leavesreport/leavesreport.component';
 import { LogoutComponent } from './logout/logout.component';
 import { SalaryreportComponent } from './salaryreport/salaryreport.component';
 import { EditleavesComponent } from './editleaves/editleaves.component';
 import { EditsalaryComponent } from './editsalary/editsalary.component';
-import {EditemployeeComponent} from './editemployee/editemployee.component'
-import { SearchemployeeComponent } from './searchemployee/searchemployee.component';
+import {EditemployeeComponent} from './employee/editemployee/editemployee.component'
+import { SearchemployeeComponent } from './employee/searchemployee/searchemployee.component';
 import { AddhrComponent } from './addhr/addhr.component';
 
 

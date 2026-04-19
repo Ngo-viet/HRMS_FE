@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HrmsService } from '../hrms.service';
+import { EmployeeService } from '../../shared/service/employee.service';
 import { NgForm } from '@angular/forms';
 import { Route, Router } from '@angular/router';
 import { ConnectableObservable } from 'rxjs';
-import { Employee } from '../employee';
+import { Employee } from '../../employee/employee.model';
 
 @Component({
   selector: 'app-addemployee',
@@ -15,7 +15,7 @@ export class AddemployeeComponent implements OnInit {
   employee=new Employee();
   msg="";
   not_available=false;
-  constructor(private service: HrmsService,private router:Router) { }
+  constructor(private service: EmployeeService,private router:Router) { }
 
   ngOnInit(): void {
   }

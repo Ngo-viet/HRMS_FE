@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { SalaryService } from '../shared/service/salary.service';
 import { Salary } from '../salary';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddsalaryComponent implements OnInit {
   salary = new Salary();
   msg = "";
 
-  constructor(private service: HrmsService, private router: Router) { }
+  constructor(private service: SalaryService, private router: Router) { }
 
   ngOnInit(): void {
   }

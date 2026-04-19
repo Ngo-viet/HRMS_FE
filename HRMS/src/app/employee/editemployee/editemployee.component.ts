@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '../employee';
-import { HrmsService } from '../hrms.service';
+import { Employee } from '../../employee/employee.model';
+import { EmployeeService } from '../../shared/service/employee.service';
 
 @Component({
   selector: 'app-editemployee',
@@ -13,7 +13,7 @@ export class EditemployeeComponent implements OnInit {
   id:number;
   employee:any=new Employee();
   msg="";
-  constructor(private service: HrmsService,private router:ActivatedRoute) { }
+  constructor(private service: EmployeeService,private router:ActivatedRoute) { }
 
   ngOnInit(): void 
   {

@@ -300,14 +300,28 @@
   .sidebar {
     width: 100%;
     height: auto;
-    position: relative;
+    position: static;
   }
 
   .main-content {
     margin-left: 0;
+    padding: 20px;
   }
 
   .search-container {
     grid-template-columns: 1fr;
+  }
+
+  .page-header h1 {
+    font-size: 22px;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 10px 12px;
   }
 }

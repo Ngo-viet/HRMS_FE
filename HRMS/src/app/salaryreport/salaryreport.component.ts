@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { SalaryService } from '../shared/service/salary.service';
 
 @Component({
   selector: 'app-salaryreport',
@@ -10,7 +10,7 @@ import { HrmsService } from '../hrms.service';
 export class SalaryreportComponent implements OnInit {
 
   salary:any
-  constructor(private service:HrmsService,private router: Router,private router1:ActivatedRoute) { }
+  constructor(private service:SalaryService,private router: Router,private router1:ActivatedRoute) { }
 
   sid = this.router1.snapshot.params['sid'];
   

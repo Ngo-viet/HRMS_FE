@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router, Route } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { HrService } from '../shared/service/hr.service';
 import { User } from '../user';
 import { ConnectableObservable } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -15,8 +14,8 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   user = new User();
-  msg="";
-  constructor(private service: HrmsService,private router:Router) { }
+  msg: string = '';
+  constructor(private service: HrService,private router:Router) { }
 
   ngOnInit(): void {
   }

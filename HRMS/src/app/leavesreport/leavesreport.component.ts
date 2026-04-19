@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { LeavesService } from '../shared/service/leaves.service';
 
 @Component({
   selector: 'app-leavesreport',
@@ -10,7 +10,7 @@ import { HrmsService } from '../hrms.service';
 export class LeavesreportComponent implements OnInit {
 
   leaves:any
-  constructor(private service:HrmsService,private router: Router,private router1:ActivatedRoute) { }
+  constructor(private service:LeavesService,private router: Router,private router1:ActivatedRoute) { }
 
   lid = this.router1.snapshot.params['lid'];
 

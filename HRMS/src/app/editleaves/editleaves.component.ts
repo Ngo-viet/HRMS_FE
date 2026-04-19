@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { LeavesService } from '../shared/service/leaves.service';
 import { Leaves } from '../leaves';
 
 @Component({
@@ -13,7 +13,7 @@ export class EditleavesComponent implements OnInit {
   msg="";
   lid:number;
   leaves:any=new Leaves();
-  constructor(private service: HrmsService,private router:ActivatedRoute) { }
+  constructor(private service: LeavesService,private router:ActivatedRoute) { }
 
   ngOnInit(): void 
   {

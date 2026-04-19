@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { HrService } from '../shared/service/hr.service';
 import { User } from '../user';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddhrComponent implements OnInit {
   not_available=false;
   user=new User();
 
-  constructor(private service: HrmsService,private router:Router) { }
+  constructor(private service: HrService,private router:Router) { }
 
   ngOnInit(): void {
   }

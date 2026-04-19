@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HrmsService } from '../hrms.service';
+import { LeavesService } from '../shared/service/leaves.service';
 import { Leaves } from '../leaves';
 
 @Component({
@@ -13,7 +13,7 @@ export class AddleavesComponent implements OnInit {
   leaves=new Leaves();
   not_available=false;
   msg="";
-  constructor(private service: HrmsService,private router:Router) { }
+  constructor(private service: LeavesService,private router:Router) { }
 
   ngOnInit(): void {
   }
