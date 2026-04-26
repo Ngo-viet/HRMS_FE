@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/service/employee.service';
 import { Employee } from '../../employee/employee.model';
 
@@ -10,7 +11,6 @@ import { Employee } from '../../employee/employee.model';
 })
 export class EmployeereportComponent implements OnInit {
 
-  //declaring employee class here
   employee: any;
   filteredEmployees: any;
   searchCriteria = {
@@ -20,24 +20,66 @@ export class EmployeereportComponent implements OnInit {
     email: ''
   };
 
-  // Modal states
   showAddModal = false;
   showEditModal = false;
-  newEmployee = new Employee();
-  editEmployee = new Employee();
   addMsg = '';
   editMsg = '';
   addNotAvailable = false;
   editNotAvailable = false;
 
-  // in order to access myservice  i need to do dependancy injection
-  constructor(private service: EmployeeService, private router:Router,private router1:ActivatedRoute) { }
-
+  addEmployeeForm: FormGroup;
+  editEmployeeForm: FormGroup;
 
   id = this.router1.snapshot.params['id'];
 
+  constructor(
+    private service: EmployeeService, 
+    private router: Router,
+    private router1: ActivatedRoute,
+    private fb: FormBuilder
+  ) { }
 
-  //i want to access all employee and display at beggining
+  ngOnInit(): void {
+    this.initForms();
+    this.loadEmployees();
+      
+    if(this.id != undefined) {
+      console.log("id from button "+ this.id);
+      this.deleteEmployee(this.id);
+    }
+  }
+
+  initForms() {
+    this.addEmployeeForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')]],
+      mobile: ['', Validators.required],
+      department: ['', Validators.required],
+      gender: ['', Validators.required],
+      fullAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required]
+    });
+
+    this.editEmployeeForm = this.fb.group({
+      id: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')]],
+      mobile: ['', Validators.required],
+      department: ['', Validators.required],
+      gender: ['', Validators.required],
+      fullAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required],
+      createdBy: [''],
+      createdDate: ['']
+    });
+  }
+
   deleteEmployee(id: number): void {
     this.service.deleteEmployeeFromRemote(id).subscribe(data => 
       {
@@ -62,10 +104,9 @@ export class EmployeereportComponent implements OnInit {
     });
   }
 
-  // Modal methods
   openAddModal(): void {
+    this.addEmployeeForm.reset();
     this.showAddModal = true;
-    this.newEmployee = new Employee();
     this.addMsg = '';
     this.addNotAvailable = false;
   }
@@ -76,7 +117,7 @@ export class EmployeereportComponent implements OnInit {
 
   openEditModal(emp: any): void {
     this.showEditModal = true;
-    this.editEmployee = { ...emp };
+    this.editEmployeeForm.patchValue(emp);
     this.editMsg = '';
     this.editNotAvailable = false;
   }
@@ -86,37 +127,41 @@ export class EmployeereportComponent implements OnInit {
   }
 
   addEmployee(): void {
-    this.service.addEmployeeFromRemote(this.newEmployee).subscribe(
-      data => {
-        console.log("Employee Added Successfully ");
-        this.addNotAvailable = true;
-        this.addMsg = "Employee Added Successfully";
-        this.closeAddModal();
-        this.loadEmployees(); // Refresh list
-      },
-      error => {
-        console.log("exception occured");
-        this.addMsg = "Email Address Already Exists !!!";
-        this.addNotAvailable = false;
-      }
-    );
+    if (this.addEmployeeForm.valid) {
+      this.service.addEmployeeFromRemote(this.addEmployeeForm.value).subscribe(
+        data => {
+          console.log("Employee Added Successfully ");
+          this.addNotAvailable = true;
+          this.addMsg = "Employee Added Successfully";
+          this.closeAddModal();
+          this.loadEmployees(); // Refresh list
+        },
+        error => {
+          console.log("exception occured");
+          this.addMsg = "Email Address Already Exists !!!";
+          this.addNotAvailable = false;
+        }
+      );
+    }
   }
 
   editEmployeeSubmit(): void {
-    this.service.editEmployeeFromRemote(this.editEmployee).subscribe(
-      data => {
-        console.log("Employee Updated Successfully ");
-        this.editNotAvailable = true;
-        this.editMsg = "Employee Updated Successfully";
-        this.closeEditModal();
-        this.loadEmployees(); // Refresh list
-      },
-      error => {
-        console.log("exception occured");
-        this.editMsg = "Something Went Wrong";
-        this.editNotAvailable = false;
-      }
-    );
+    if (this.editEmployeeForm.valid) {
+      this.service.editEmployeeFromRemote(this.editEmployeeForm.value).subscribe(
+        data => {
+          console.log("Employee Updated Successfully ");
+          this.editNotAvailable = true;
+          this.editMsg = "Employee Updated Successfully";
+          this.closeEditModal();
+          this.loadEmployees(); // Refresh list
+        },
+        error => {
+          console.log("exception occured");
+          this.editMsg = "Something Went Wrong";
+          this.editNotAvailable = false;
+        }
+      );
+    }
   }
 
   loadEmployees(): void {
@@ -125,16 +170,4 @@ export class EmployeereportComponent implements OnInit {
       this.filteredEmployees = data;
     });
   }
-
-  ngOnInit(): void {
-    this.loadEmployees();
-      
-    if(this.id != undefined) {
-      console.log("id from button "+ this.id);
-      this.deleteEmployee(this.id);
-    }
-  }
-
-  }
-
-
+}

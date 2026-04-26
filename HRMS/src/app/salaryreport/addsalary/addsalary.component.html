@@ -12,22 +12,13 @@
       <a routerLink="/employeereport" class="menu-item">
         <i class="fas fa-users-cog"></i><span>Employee Report</span>
       </a>
-      <a routerLink="/addemployee" class="menu-item">
-        <i class="fas fa-user-plus"></i><span>Add Employee</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
       </a>
-      <a routerLink="/addleaves" class="menu-item">
-        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/salaryreport" class="menu-item">
         <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
-      </a>
-      <a routerLink="/addsalary" class="menu-item">
-        <i class="fas fa-coins"></i><span>Add Salary</span>
       </a>
       <div class="menu-divider"></div>
       <a routerLink="/addhr" class="menu-item">
@@ -42,8 +33,8 @@
 
   <main class="main-content">
     <div class="page-header">
-      <h1>Update Salary Details</h1>
-      <p>Modify salary information for employees</p>
+      <h1>Add Salary Details</h1>
+      <p>Add or update salary information for employees</p>
     </div>
 
     <div class="form-container">
@@ -53,22 +44,21 @@
           <span>{{msg}}</span>
         </div>
 
-        <form #editSalaryform="ngForm" (ngSubmit)="editSalary()">
-          <input type="hidden" name="sid" [(ngModel)]="salary.sid" #sid="ngModel">
-
+        <form [formGroup]="addSalaryForm" (ngSubmit)="addSalary()">
           <div class="form-row">
             <div class="form-group">
               <label for="eid">Employee ID</label>
-              <input type="text" class="form-control" name="eid" id="eid"
-                [(ngModel)]="salary.eid" #eid="ngModel"
-                [class.is-invalid]="eid.invalid && eid.touched" disabled required>
+              <input type="text" class="form-control" id="eid"
+                formControlName="eid"
+                [class.is-invalid]="addSalaryForm.get('eid')?.invalid && addSalaryForm.get('eid')?.touched"
+                placeholder="Enter employee ID">
             </div>
 
             <div class="form-group">
               <label for="month">Select Month</label>
-              <select id="month" name="month" class="form-control"
-                [(ngModel)]="salary.month" #month="ngModel"
-                [class.is-invalid]="month.invalid && month.touched" required>
+              <select id="month" class="form-control"
+                formControlName="month"
+                [class.is-invalid]="addSalaryForm.get('month')?.invalid && addSalaryForm.get('month')?.touched">
                 <option value="" selected hidden>Choose Month</option>
                 <option value="January">January</option>
                 <option value="February">February</option>
@@ -89,17 +79,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="twd">Total Working Days</label>
-              <input type="number" class="form-control" name="twd" id="twd" min="1" max="31"
-                [(ngModel)]="salary.twd" #twd="ngModel"
-                [class.is-invalid]="twd.invalid && twd.touched" required
+              <input type="number" class="form-control" id="twd" min="1" max="31"
+                formControlName="twd"
+                [class.is-invalid]="addSalaryForm.get('twd')?.invalid && addSalaryForm.get('twd')?.touched"
                 placeholder="1-31">
             </div>
 
             <div class="form-group">
               <label for="basic">Basic Salary</label>
-              <input type="text" class="form-control" name="basic" id="basic"
-                [(ngModel)]="salary.basic" #basic="ngModel"
-                [class.is-invalid]="basic.invalid && basic.touched" required
+              <input type="text" class="form-control" id="basic"
+                formControlName="basic"
+                [class.is-invalid]="addSalaryForm.get('basic')?.invalid && addSalaryForm.get('basic')?.touched"
                 placeholder="Enter basic salary">
             </div>
           </div>
@@ -107,17 +97,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="hra">Total HRA</label>
-              <input type="text" class="form-control" name="hra" id="hra"
-                [(ngModel)]="salary.hra" #hra="ngModel"
-                [class.is-invalid]="hra.invalid && hra.touched" required
+              <input type="text" class="form-control" id="hra"
+                formControlName="hra"
+                [class.is-invalid]="addSalaryForm.get('hra')?.invalid && addSalaryForm.get('hra')?.touched"
                 placeholder="Enter HRA amount">
             </div>
 
             <div class="form-group">
               <label for="ca">Conveyance Allowance</label>
-              <input type="text" class="form-control" name="ca" id="ca"
-                [(ngModel)]="salary.ca" #ca="ngModel"
-                [class.is-invalid]="ca.invalid && ca.touched" required
+              <input type="text" class="form-control" id="ca"
+                formControlName="ca"
+                [class.is-invalid]="addSalaryForm.get('ca')?.invalid && addSalaryForm.get('ca')?.touched"
                 placeholder="Enter conveyance allowance">
             </div>
           </div>
@@ -125,28 +115,28 @@
           <div class="form-row">
             <div class="form-group">
               <label for="pay">Total Net Pay</label>
-              <input type="text" class="form-control" name="pay" id="pay"
-                [(ngModel)]="salary.pay" #pay="ngModel"
-                [class.is-invalid]="pay.invalid && pay.touched" required
+              <input type="text" class="form-control" id="pay"
+                formControlName="pay"
+                [class.is-invalid]="addSalaryForm.get('pay')?.invalid && addSalaryForm.get('pay')?.touched"
                 placeholder="Generated automatically">
             </div>
 
             <div class="form-group">
               <label for="deduction">Total Deductions</label>
-              <input type="text" class="form-control" name="deduction" id="deduction"
-                [(ngModel)]="salary.deduction" #deduction="ngModel"
-                [class.is-invalid]="deduction.invalid && deduction.touched" required
+              <input type="text" class="form-control" id="deduction"
+                formControlName="deduction"
+                [class.is-invalid]="addSalaryForm.get('deduction')?.invalid && addSalaryForm.get('deduction')?.touched"
                 placeholder="Enter total deductions">
             </div>
           </div>
 
           <div class="form-actions">
-            <button type="button" class="btn btn-secondary" routerLink="/salaryreport">
+            <button type="button" class="btn btn-secondary" routerLink="/dashboard">
               <i class="fas fa-times"></i> Cancel
             </button>
             <button type="submit" class="btn btn-primary"
-              [disabled]="editSalaryform.form.invalid">
-              <i class="fas fa-save"></i> Update Salary
+              [disabled]="addSalaryForm.invalid">
+              <i class="fas fa-check"></i> Add Salary
             </button>
           </div>
         </form>

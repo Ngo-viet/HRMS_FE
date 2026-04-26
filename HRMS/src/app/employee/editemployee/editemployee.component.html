@@ -12,22 +12,13 @@
       <a routerLink="/employeereport" class="menu-item">
         <i class="fas fa-users-cog"></i><span>Employee Report</span>
       </a>
-      <a routerLink="/addemployee" class="menu-item">
-        <i class="fas fa-user-plus"></i><span>Add Employee</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
       </a>
-      <a routerLink="/addleaves" class="menu-item">
-        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/salaryreport" class="menu-item">
         <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
-      </a>
-      <a routerLink="/addsalary" class="menu-item">
-        <i class="fas fa-coins"></i><span>Add Salary</span>
       </a>
       <div class="menu-divider"></div>
       <a routerLink="/addhr" class="menu-item">
@@ -53,28 +44,28 @@
           <span>{{msg}}</span>
         </div>
 
-        <form #editemployeeform="ngForm" (ngSubmit)="editEmployee()">
+        <form [formGroup]="editEmployeeForm" (ngSubmit)="editEmployee()">
           <div class="form-group">
             <label for="id">Employee ID</label>
-            <input type="text" class="form-control" name="id" id="id" disabled
-              [(ngModel)]="employee.id" #id="ngModel"
-              [class.is-invalid]="id.invalid && id.touched" required>
+            <input type="text" class="form-control" id="id"
+              formControlName="id"
+              [class.is-invalid]="editEmployeeForm.get('id')?.invalid && editEmployeeForm.get('id')?.touched">
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="fname">First Name</label>
-              <input type="text" class="form-control" name="fname" id="fname"
-                [(ngModel)]="employee.firstName" #fname="ngModel"
-                [class.is-invalid]="fname.invalid && fname.touched" required
+              <input type="text" class="form-control" id="fname"
+                formControlName="firstName"
+                [class.is-invalid]="editEmployeeForm.get('firstName')?.invalid && editEmployeeForm.get('firstName')?.touched"
                 placeholder="Enter first name">
             </div>
 
             <div class="form-group">
               <label for="lname">Last Name</label>
-              <input type="text" class="form-control" name="lname" id="lname"
-                [(ngModel)]="employee.lastName" #lname="ngModel"
-                [class.is-invalid]="lname.invalid && lname.touched" required
+              <input type="text" class="form-control" id="lname"
+                formControlName="lastName"
+                [class.is-invalid]="editEmployeeForm.get('lastName')?.invalid && editEmployeeForm.get('lastName')?.touched"
                 placeholder="Enter last name">
             </div>
           </div>
@@ -82,22 +73,21 @@
           <div class="form-row">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" name="email" id="email"
-                [(ngModel)]="employee.email" #email="ngModel"
-                [class.is-invalid]="email.invalid && email.touched" required
-                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              <input type="email" class="form-control" id="email"
+                formControlName="email"
+                [class.is-invalid]="editEmployeeForm.get('email')?.invalid && editEmployeeForm.get('email')?.touched"
                 placeholder="Enter email address">
-              <div *ngIf="email.errors && (email.invalid && email.touched)">
-                <small class="text-danger" *ngIf="email.errors?.['required']">Email is required</small>
-                <small class="text-danger" *ngIf="email.errors?.['pattern']">Enter a valid email</small>
+              <div *ngIf="editEmployeeForm.get('email')?.invalid && editEmployeeForm.get('email')?.touched">
+                <small class="text-danger" *ngIf="editEmployeeForm.get('email')?.errors?.['required']">Email is required</small>
+                <small class="text-danger" *ngIf="editEmployeeForm.get('email')?.errors?.['pattern']">Enter a valid email</small>
               </div>
             </div>
 
             <div class="form-group">
               <label for="mobile">Mobile</label>
-              <input type="text" class="form-control" name="mobile" id="mobile"
-                [(ngModel)]="employee.mobile" #mobile="ngModel"
-                [class.is-invalid]="mobile.invalid && mobile.touched" required
+              <input type="text" class="form-control" id="mobile"
+                formControlName="mobile"
+                [class.is-invalid]="editEmployeeForm.get('mobile')?.invalid && editEmployeeForm.get('mobile')?.touched"
                 placeholder="Enter mobile number">
             </div>
           </div>
@@ -105,9 +95,9 @@
           <div class="form-row">
             <div class="form-group">
               <label for="department">Department</label>
-              <select name="department" id="department" class="form-control"
-                [(ngModel)]="employee.department" #department="ngModel"
-                [class.is-invalid]="department.invalid && department.touched" required>
+              <select id="department" class="form-control"
+                formControlName="department"
+                [class.is-invalid]="editEmployeeForm.get('department')?.invalid && editEmployeeForm.get('department')?.touched">
                 <option value="" selected hidden>Choose Department</option>
                 <option value="IT Services">IT Services</option>
                 <option value="Product Development">Product Development</option>
@@ -121,9 +111,9 @@
 
             <div class="form-group">
               <label for="gender">Gender</label>
-              <select name="gender" id="gender" class="form-control"
-                [(ngModel)]="employee.gender" #gender="ngModel"
-                [class.is-invalid]="gender.invalid && gender.touched" required>
+              <select id="gender" class="form-control"
+                formControlName="gender"
+                [class.is-invalid]="editEmployeeForm.get('gender')?.invalid && editEmployeeForm.get('gender')?.touched">
                 <option value="" selected hidden>Choose Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -134,17 +124,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="fullAddress">Full Address</label>
-              <input type="text" class="form-control" name="fullAddress" id="fullAddress"
-                [(ngModel)]="employee.fullAddress" #fullAddress="ngModel"
-                [class.is-invalid]="fullAddress.invalid && fullAddress.touched" required
+              <input type="text" class="form-control" id="fullAddress"
+                formControlName="fullAddress"
+                [class.is-invalid]="editEmployeeForm.get('fullAddress')?.invalid && editEmployeeForm.get('fullAddress')?.touched"
                 placeholder="Enter full address">
             </div>
 
             <div class="form-group">
               <label for="city">City</label>
-              <input type="text" class="form-control" name="city" id="city"
-                [(ngModel)]="employee.city" #city="ngModel"
-                [class.is-invalid]="city.invalid && city.touched" required
+              <input type="text" class="form-control" id="city"
+                formControlName="city"
+                [class.is-invalid]="editEmployeeForm.get('city')?.invalid && editEmployeeForm.get('city')?.touched"
                 placeholder="Enter city">
             </div>
           </div>
@@ -152,17 +142,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="state">State</label>
-              <input type="text" class="form-control" name="state" id="state"
-                [(ngModel)]="employee.state" #state="ngModel"
-                [class.is-invalid]="state.invalid && state.touched" required
+              <input type="text" class="form-control" id="state"
+                formControlName="state"
+                [class.is-invalid]="editEmployeeForm.get('state')?.invalid && editEmployeeForm.get('state')?.touched"
                 placeholder="Enter state">
             </div>
 
             <div class="form-group">
               <label for="country">Country</label>
-              <input type="text" class="form-control" name="country" id="country"
-                [(ngModel)]="employee.country" #country="ngModel"
-                [class.is-invalid]="country.invalid && country.touched" required
+              <input type="text" class="form-control" id="country"
+                formControlName="country"
+                [class.is-invalid]="editEmployeeForm.get('country')?.invalid && editEmployeeForm.get('country')?.touched"
                 placeholder="Enter country">
             </div>
           </div>
@@ -172,7 +162,7 @@
               <i class="fas fa-times"></i> Cancel
             </button>
             <button type="submit" class="btn btn-primary"
-              [disabled]="editemployeeform.form.invalid">
+              [disabled]="editEmployeeForm.invalid">
               <i class="fas fa-save"></i> Update Employee
             </button>
           </div>

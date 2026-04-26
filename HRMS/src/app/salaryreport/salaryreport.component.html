@@ -12,22 +12,13 @@
       <a routerLink="/employeereport" class="menu-item">
         <i class="fas fa-users-cog"></i><span>Employee Report</span>
       </a>
-      <a routerLink="/addemployee" class="menu-item">
-        <i class="fas fa-user-plus"></i><span>Add Employee</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
       </a>
-      <a routerLink="/addleaves" class="menu-item">
-        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/salaryreport" class="menu-item active">
         <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
-      </a>
-      <a routerLink="/addsalary" class="menu-item">
-        <i class="fas fa-coins"></i><span>Add Salary</span>
       </a>
       <div class="menu-divider"></div>
       <a routerLink="/addhr" class="menu-item">
@@ -47,8 +38,11 @@
     </div>
 
     <div class="report-container">
-      <div class="report-header">
+      <div class="report-header report-header-flex">
         <h2>Salary Records</h2>
+        <button type="button" class="btn btn-primary add-salary-btn" (click)="openAddModal()">
+          <i class="fas fa-plus"></i> Add Salary
+        </button>
       </div>
 
       <div class="table-wrapper">
@@ -65,7 +59,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let salary of salary">
+            <tr *ngFor="let salary of salaries">
               <td>{{salary.eid}}</td>
               <td>{{salary.month}}</td>
               <td>{{salary.twd}}</td>
@@ -73,12 +67,12 @@
               <td>{{salary.hra}}</td>
               <td><strong>{{salary.pay}}</strong></td>
               <td>
-                <a routerLink="/editsalary/{{salary.sid}}" class="action-link edit-link" title="Edit">
+                <button type="button" class="action-link edit-link" title="Edit" (click)="openEditModal(salary)">
                   <i class="fas fa-edit"></i>
-                </a>
-                <a routerLink="/salaryreport/{{salary.sid}}" class="action-link delete-link" title="Delete">
+                </button>
+                <button type="button" class="action-link delete-link" title="Delete" (click)="deleteSalary(salary.sid)">
                   <i class="fas fa-trash"></i>
-                </a>
+                </button>
               </td>
             </tr>
           </tbody>

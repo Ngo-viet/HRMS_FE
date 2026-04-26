@@ -13,22 +13,13 @@
       <a routerLink="/employeereport" class="menu-item">
         <i class="fas fa-users-cog"></i><span>Employee Report</span>
       </a>
-      <a routerLink="/addemployee" class="menu-item">
-        <i class="fas fa-user-plus"></i><span>Add Employee</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
       </a>
-      <a routerLink="/addleaves" class="menu-item">
-        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/salaryreport" class="menu-item">
         <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
-      </a>
-      <a routerLink="/addsalary" class="menu-item">
-        <i class="fas fa-coins"></i><span>Add Salary</span>
       </a>
       <div class="menu-divider"></div>
       <a routerLink="/addhr" class="menu-item active">
@@ -58,20 +49,20 @@
           <span>{{msg}}</span>
         </div>
 
-        <form #addemployeeform="ngForm" (ngSubmit)="addHr()">
+        <form [formGroup]="addHrForm" (ngSubmit)="addHr()">
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" class="form-control" name="email" id="email"
-              [(ngModel)]="user.email" #email="ngModel"
-              [class.is-invalid]="email.invalid && email.touched" required
+            <input type="email" class="form-control" id="email"
+              formControlName="email"
+              [class.is-invalid]="addHrForm.get('email')?.invalid && addHrForm.get('email')?.touched" required
               placeholder="Enter HR email address">
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password"
-              [(ngModel)]="user.password" #password="ngModel"
-              [class.is-invalid]="password.invalid && password.touched" required
+            <input type="password" class="form-control" id="password"
+              formControlName="password"
+              [class.is-invalid]="addHrForm.get('password')?.invalid && addHrForm.get('password')?.touched" required
               placeholder="Enter secure password">
           </div>
 
@@ -80,7 +71,7 @@
               <i class="fas fa-times"></i> Cancel
             </button>
             <button type="submit" class="btn btn-primary"
-              [disabled]="addemployeeform.form.invalid">
+              [disabled]="addHrForm.invalid">
               <i class="fas fa-check"></i> Add HR User
             </button>
           </div>

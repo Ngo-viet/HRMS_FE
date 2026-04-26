@@ -1,0 +1,45 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <i class="fas fa-users"></i>
+    </div>
+    <div>
+      <h2>HRMS</h2>
+      <p>Human Resource Management</p>
+    </div>
+  </div>
+
+  <nav class="sidebar-menu">
+    <a routerLink="/dashboard" class="menu-item" [ngClass]="{ active: isActive('dashboard') }">
+      <i class="fas fa-chart-line"></i>
+      <span>Dashboard</span>
+    </a>
+    <a routerLink="/employeereport" class="menu-item" [ngClass]="{ active: isActive('employeereport') }">
+      <i class="fas fa-users"></i>
+      <span>Employee Report</span>
+    </a>
+    <div class="menu-divider"></div>
+    <a routerLink="/leavesreport" class="menu-item" [ngClass]="{ active: isActive('leavesreport') }">
+      <i class="fas fa-calendar"></i>
+      <span>Leave Report</span>
+    </a>
+    <div class="menu-divider"></div>
+    <a routerLink="/salaryreport" class="menu-item" [ngClass]="{ active: isActive('salaryreport') }">
+      <i class="fas fa-money-bill-wave"></i>
+      <span>Salary Report</span>
+    </a>
+    <a routerLink="/contracts" class="menu-item" [ngClass]="{ active: isActive('contracts') }">
+      <i class="fas fa-file-contract"></i>
+      <span>Contracts</span>
+    </a>
+    <div class="menu-divider"></div>
+    <a routerLink="/addhr" class="menu-item" [ngClass]="{ active: isActive('addhr') }">
+      <i class="fas fa-user-tie"></i>
+      <span>Add HR</span>
+    </a>
+    <a routerLink="/logout" class="menu-item logout" [ngClass]="{ active: isActive('logout') }">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Logout</span>
+    </a>
+  </nav>
+</aside>

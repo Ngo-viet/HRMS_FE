@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Employee } from '../../employee/employee.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/service/employee.service';
 
 @Component({
@@ -11,44 +9,39 @@ import { EmployeeService } from '../../shared/service/employee.service';
 })
 export class SearchemployeeComponent implements OnInit {
 
- 
-employee:any=new Employee();
-msg: string = '';
-//we always denote observable as $ so its identified
-data$:any;
-available:boolean= false;
+  searchForm: FormGroup;
+  msg: string = '';
+  data$:any;
+  available:boolean= false;
 
-  constructor(private http:HttpClient,private router:Router,private service:EmployeeService) { }
+  constructor(private service:EmployeeService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-  }
-  serachemployee()
-  {
-    console.log(this.employee);
-    this.service.searchEmpFromRemote(this.employee).subscribe(
-      (response: any)=>
-      {
-        this.data$=response;
-        if(this.data$==null)
-        {
-          console.log("employee object is null")
-          this.msg="Employee is not found";
-          this.available=false;
-
-        }
-        else{
-          this.available=true;
-        }
-        
-        console.log("Return employee object: "+this.data$.firstName);
-        console.log("Return employee object: "+this.data$.email);
-
-      },
-      (errors: any)=>{
-        console.log("errors");
-
-      }
-    )
+    this.searchForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
+  serachemployee() {
+    if (this.searchForm.valid) {
+      this.msg = '';
+      this.service.searchEmpFromRemote(this.searchForm.value).subscribe(
+        (response: any) => {
+          this.data$ = response;
+          if(this.data$ == null) {
+            console.log("employee object is null")
+            this.msg = "Employee is not found";
+            this.available = false;
+          } else {
+            this.available = true;
+            console.log("Return employee object: "+this.data$.firstName);
+            console.log("Return employee object: "+this.data$.email);
+          }
+        },
+        (errors: any) => {
+          console.log("errors");
+        }
+      )
+    }
+  }
 }

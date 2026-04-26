@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '../../employee/employee.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/service/employee.service';
 
 @Component({
@@ -11,36 +11,53 @@ import { EmployeeService } from '../../shared/service/employee.service';
 export class EditemployeeComponent implements OnInit {
 
   id:number;
-  employee:any=new Employee();
+  editEmployeeForm: FormGroup;
   msg="";
-  constructor(private service: EmployeeService,private router:ActivatedRoute) { }
 
-  ngOnInit(): void 
-  {
+  constructor(
+    private service: EmployeeService,
+    private router: ActivatedRoute,
+    private fb: FormBuilder
+  ) { }
+
+  ngOnInit(): void {
     this.id = this.router.snapshot.params['id'];
-  
-    this.service.getCurrentEmployeeFromRemote(this.id).subscribe(data => 
-      {
-       this.employee = data;
-       console.log("employee is fetch based on id "+this.id)
-       }, 
+    
+    this.editEmployeeForm = this.fb.group({
+      id: [{value: '', disabled: true}, Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.pattern('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')]],
+      mobile: ['', Validators.required],
+      department: ['', Validators.required],
+      gender: ['', Validators.required],
+      fullAddress: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required]
+    });
+
+    this.service.getCurrentEmployeeFromRemote(this.id).subscribe(data => {
+      this.editEmployeeForm.patchValue(data);
+      console.log("employee is fetch based on id "+this.id)
+    }, 
     error => console.log(error));
   }
 
-  editEmployee()
-  {
-    this.service.editEmployeeFromRemote(this.employee).subscribe(
-      data => {
-        console.log("Employee Updated Successfully ");
-        this.msg="Employee Updated Successfully"
-        
-      },
-      error => {
-        console.log("exception occured");
-        this.msg="Something Went Wrong"
-
-      }
-    )
+  editEmployee() {
+    if (this.editEmployeeForm.valid) {
+      const updatedEmployee = this.editEmployeeForm.getRawValue();
+      this.service.editEmployeeFromRemote(updatedEmployee).subscribe(
+        data => {
+          console.log("Employee Updated Successfully ");
+          this.msg="Employee Updated Successfully"
+        },
+        error => {
+          console.log("exception occured");
+          this.msg="Something Went Wrong"
+        }
+      )
+    }
   }
 
 }

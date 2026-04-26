@@ -1,0 +1,209 @@
+<div class="app-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-users"></i>
+      </div>
+      <h2>HRMS</h2>
+      <p>Human Resource Management</p>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a routerLink="/dashboard" class="menu-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/employeereport" class="menu-item">
+        <i class="fas fa-users"></i>
+        <span>Employee Report</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/leavesreport" class="menu-item active">
+        <i class="fas fa-calendar"></i>
+        <span>Leave Report</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/salaryreport" class="menu-item">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Salary Report</span>
+      </a>
+      <div class="menu-divider"></div>
+      <a routerLink="/addhr" class="menu-item">
+        <i class="fas fa-user-tie"></i>
+        <span>Add HR</span>
+      </a>
+      <a routerLink="" class="menu-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div class="header-content">
+        <div class="header-text">
+          <h1>Leave Report</h1>
+          <p>Manage and view all employee leaves</p>
+        </div>
+        <button class="btn btn-primary add-new-btn" type="button" (click)="openAddModal()">
+          <i class="fas fa-plus"></i> Add Leave
+        </button>
+      </div>
+    </div>
+
+    <div class="report-container">
+      <div class="report-header">
+        <h2>Leave Records</h2>
+      </div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>EID</th>
+              <th>Email</th>
+              <th>From Date</th>
+              <th>To Date</th>
+              <th>Reason</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of leaves">
+              <td>{{ leave.eid }}</td>
+              <td>{{ leave.email }}</td>
+              <td>{{ leave.fromDate }}</td>
+              <td>{{ leave.toDate }}</td>
+              <td>{{ leave.leaveResone }}</td>
+              <td>{{ leave.description }}</td>
+              <td>
+                <button type="button" class="action-link edit-link" (click)="openEditModal(leave)" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button type="button" class="action-link delete-link" (click)="deleteLeaves(leave.lid)" title="Delete">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div *ngIf="showAddModal" class="modal-overlay" (click)="closeAddModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Add Leave</h2>
+        <button type="button" class="close-btn" (click)="closeAddModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addLeaveForm" (ngSubmit)="addLeave()">
+          <div *ngIf="addMsg" class="alert" [ngClass]="addSuccess ? 'alert-success' : 'alert-danger'">
+            <i class="fas" [ngClass]="addSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+            <span>{{ addMsg }}</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="eid">Employee ID</label>
+              <input type="number" class="form-control" id="eid" formControlName="eid">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fromDate">From Date</label>
+              <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+            </div>
+            <div class="form-group">
+              <label for="toDate">To Date</label>
+              <input type="date" class="form-control" id="toDate" formControlName="toDate">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="leaveResone">Leave Reason</label>
+              <input type="text" class="form-control" id="leaveResone" formControlName="leaveResone">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" formControlName="description" rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="addLeaveForm.invalid">Save Leave</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showEditModal" class="modal-overlay" (click)="closeEditModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Edit Leave</h2>
+        <button type="button" class="close-btn" (click)="closeEditModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editLeaveForm" (ngSubmit)="editLeaveSubmit()">
+          <div *ngIf="editMsg" class="alert" [ngClass]="editSuccess ? 'alert-success' : 'alert-danger'">
+            <i class="fas" [ngClass]="editSuccess ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>
+            <span>{{ editMsg }}</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editEid">Employee ID</label>
+              <input type="number" class="form-control" id="editEid" formControlName="eid">
+            </div>
+            <div class="form-group">
+              <label for="editEmail">Email</label>
+              <input type="email" class="form-control" id="editEmail" formControlName="email">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editFromDate">From Date</label>
+              <input type="date" class="form-control" id="editFromDate" formControlName="fromDate">
+            </div>
+            <div class="form-group">
+              <label for="editToDate">To Date</label>
+              <input type="date" class="form-control" id="editToDate" formControlName="toDate">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="editLeaveResone">Leave Reason</label>
+              <input type="text" class="form-control" id="editLeaveResone" formControlName="leaveResone">
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-group">
+              <label for="editDescription">Description</label>
+              <textarea class="form-control" id="editDescription" formControlName="description" rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="editLeaveForm.invalid">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

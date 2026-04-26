@@ -12,22 +12,13 @@
       <a routerLink="/employeereport" class="menu-item">
         <i class="fas fa-users-cog"></i><span>Employee Report</span>
       </a>
-      <a routerLink="/addemployee" class="menu-item">
-        <i class="fas fa-user-plus"></i><span>Add Employee</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
       </a>
-      <a routerLink="/addleaves" class="menu-item">
-        <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/salaryreport" class="menu-item">
         <i class="fas fa-dollar-sign"></i><span>Salary Report</span>
-      </a>
-      <a routerLink="/addsalary" class="menu-item">
-        <i class="fas fa-coins"></i><span>Add Salary</span>
       </a>
       <div class="menu-divider"></div>
       <a routerLink="/addhr" class="menu-item">
@@ -53,15 +44,16 @@
           <h2>Search by Email</h2>
         </div>
         
-        <form (ngSubmit)="serachemployee()" #searchForm="ngForm" class="search-form">
+        <form [formGroup]="searchForm" (ngSubmit)="serachemployee()" class="search-form">
           <div class="form-group">
             <label for="esearch">Employee Email Address</label>
-            <input type="email" id="esearch" name="esearch" class="form-control"
-              [(ngModel)]="employee.email" #email="ngModel"
-              placeholder="Enter employee email address" required>
+            <input type="email" id="esearch" class="form-control"
+              formControlName="email"
+              [class.is-invalid]="searchForm.get('email')?.invalid && searchForm.get('email')?.touched"
+              placeholder="Enter employee email address">
           </div>
           
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" [disabled]="searchForm.invalid">
             <i class="fas fa-search"></i> Search Employee
           </button>
         </form>

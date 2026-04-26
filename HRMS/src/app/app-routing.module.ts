@@ -3,17 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AddemployeeComponent } from './employee/addemployee/addemployee.component';
-import { AddleavesComponent } from './addleaves/addleaves.component';
-import { AddsalaryComponent } from './addsalary/addsalary.component';
 import { EmployeereportComponent } from './employee/employeereport/employeereport.component';
-import { LeavesreportComponent } from './leavesreport/leavesreport.component';
 import { LogoutComponent } from './logout/logout.component';
 import { SalaryreportComponent } from './salaryreport/salaryreport.component';
-import { EditleavesComponent } from './editleaves/editleaves.component';
-import { EditsalaryComponent } from './editsalary/editsalary.component';
 import {EditemployeeComponent} from './employee/editemployee/editemployee.component'
 import { SearchemployeeComponent } from './employee/searchemployee/searchemployee.component';
 import { AddhrComponent } from './addhr/addhr.component';
+import { AddleavesComponent } from './leaves/addleaves/addleaves.component';
+import { AddsalaryComponent } from './salaryreport/addsalary/addsalary.component';
+import { LeavesreportComponent } from './leaves/leavesreport/leavesreport.component';
+import { EditsalaryComponent } from './salaryreport/editsalary/editsalary.component';
 
 
 
@@ -27,7 +26,7 @@ const routes: Routes = [
 {path:'employeereport/:id',component:EmployeereportComponent},
 {path:'leavesreport',component:LeavesreportComponent},
 {path:'salaryreport',component:SalaryreportComponent},
-{path:'editleaves/:lid',component:EditleavesComponent},
+{path:'editleaves/:lid',component:AddleavesComponent},
 {path:'leavesreport/:lid',component:LeavesreportComponent},
 {path:'editsalary/:sid',component:EditsalaryComponent},
 {path:'salaryreport/:sid',component:SalaryreportComponent},

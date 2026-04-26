@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Route } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HrService } from '../shared/service/hr.service';
-import { User } from '../user';
-import { ConnectableObservable } from 'rxjs';
-import { NgForm } from '@angular/forms';
-
 
 @Component({
   selector: 'app-login',
@@ -13,25 +10,35 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  user = new User();
+  loginForm: FormGroup;
   msg: string = '';
-  constructor(private service: HrService,private router:Router) { }
+
+  constructor(
+    private service: HrService,
+    private router: Router,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.pattern('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')]],
+      password: ['', Validators.required]
+    });
   }
 
   loginUser() {
-    this.service.loginUserFromRemote(this.user).subscribe(
-      data => {
-        console.log("Log in successfully ");
-        this.msg="Log in successfully"
-        this.router.navigate(['/dashboard'])
-      },
-      error => {
-        console.log("exception occured");
-        this.msg="Bad Crediential, Please Enter valid Data"
-
-      }
-    )
+    if (this.loginForm.valid) {
+      this.service.loginUserFromRemote(this.loginForm.value).subscribe(
+        data => {
+          console.log("Log in successfully ");
+          this.msg="Log in successfully"
+          this.router.navigate(['/dashboard'])
+        },
+        error => {
+          console.log("exception occured");
+          this.msg="Bad Crediential, Please Enter valid Data"
+        }
+      )
+    }
   }
 }

@@ -31,7 +31,7 @@
         <h2>Welcome Back</h2>
         <p class="login-subtitle">Sign in to your account</p>
 
-        <form #loginform="ngForm" (ngSubmit)="loginUser()" class="login-form">
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="login-form">
           <!-- Error Message -->
           <div *ngIf="msg" class="alert alert-error">
             <i class="fas fa-exclamation-circle"></i>
@@ -48,15 +48,11 @@
               type="email" 
               id="email" 
               placeholder="admin@company.com" 
-              name="email"
-              [(ngModel)]="user.email" 
-              required  
-              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
-              #email="ngModel" 
-              [class.is-invalid]="email.invalid && email.touched">
-            <div *ngIf="email.errors && (email.invalid && email.touched)" class="error-message">
-              <small *ngIf="email.errors?.['required']"><i class="fas fa-times-circle"></i> Email is required</small>
-              <small *ngIf="email.errors?.['pattern']"><i class="fas fa-times-circle"></i> Please enter a valid email</small>
+              formControlName="email"
+              [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+              <small *ngIf="loginForm.get('email')?.errors?.['required']"><i class="fas fa-times-circle"></i> Email is required</small>
+              <small *ngIf="loginForm.get('email')?.errors?.['pattern']"><i class="fas fa-times-circle"></i> Please enter a valid email</small>
             </div>
           </div>
 
@@ -70,13 +66,10 @@
               type="password" 
               id="password" 
               placeholder="••••••••" 
-              name="password"
-              [(ngModel)]="user.password" 
-              required 
-              #password="ngModel" 
-              [class.is-invalid]="password.invalid && password.touched">
-            <div *ngIf="password.errors && (password.invalid && password.touched)" class="error-message">
-              <small *ngIf="password.errors?.['required']"><i class="fas fa-times-circle"></i> Password is required</small>
+              formControlName="password"
+              [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+              <small *ngIf="loginForm.get('password')?.errors?.['required']"><i class="fas fa-times-circle"></i> Password is required</small>
             </div>
           </div>
 
@@ -90,7 +83,7 @@
           </div>
 
           <!-- Submit Button -->
-          <button type="submit" class="login-button" [disabled]="loginform.form.invalid">
+          <button type="submit" class="login-button" [disabled]="loginForm.invalid">
             <span>Sign In</span>
             <i class="fas fa-arrow-right"></i>
           </button>

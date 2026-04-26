@@ -1,4 +1,3 @@
-
 <div class="app-wrapper">
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -13,14 +12,11 @@
       <a routerLink="/employeereport" class="menu-item">
         <i class="fas fa-users-cog"></i><span>Employee Report</span>
       </a>
-      <a routerLink="/addemployee" class="menu-item">
-        <i class="fas fa-user-plus"></i><span>Add Employee</span>
-      </a>
       <div class="menu-divider"></div>
       <a routerLink="/leavesreport" class="menu-item">
         <i class="fas fa-calendar-alt"></i><span>Leaves Report</span>
       </a>
-      <a routerLink="/addleaves" class="menu-item">
+      <a routerLink="/addleaves" class="menu-item active">
         <i class="fas fa-calendar-check"></i><span>Add Leaves</span>
       </a>
       <div class="menu-divider"></div>
@@ -43,66 +39,69 @@
 
   <main class="main-content">
     <div class="page-header">
-      <h1>Update Employee Leaves</h1>
-      <p>Modify leave request details for employees</p>
+      <h1>Add Employee Leaves</h1>
+      <p>Register leave requests for employees</p>
     </div>
 
     <div class="form-container">
       <div class="form-wrapper">
-        <div *ngIf="msg" class="alert alert-success">
+        <div *ngIf="!not_available" class="alert alert-success">
           <i class="fas fa-check-circle"></i>
           <span>{{msg}}</span>
         </div>
+        <div *ngIf="not_available" class="alert alert-danger">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{msg}}</span>
+        </div>
 
-        <form #editleavesform="ngForm" (ngSubmit)="editLeaves()">
-          <input type="hidden" name="lid" [(ngModel)]="leaves.lid" #lid="ngModel">
-
+        <form [formGroup]="addLeavesForm" (ngSubmit)="addLeaves()">
           <div class="form-group">
             <label for="eid">Employee ID</label>
-            <input type="number" class="form-control" name="eid" id="eid"
-              [(ngModel)]="leaves.eid" #eid="ngModel"
-              [class.is-invalid]="eid.invalid && eid.touched" disabled required>
+            <input type="number" class="form-control" id="eid"
+              formControlName="eid"
+              [class.is-invalid]="addLeavesForm.get('eid')?.invalid && addLeavesForm.get('eid')?.touched"
+              placeholder="Enter employee ID">
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="fromDate">From Date</label>
-              <input type="date" class="form-control" name="fromDate" id="fromDate"
-                [(ngModel)]="leaves.fromDate" #fromDate="ngModel"
-                [class.is-invalid]="fromDate.invalid && fromDate.touched" required>
+              <input type="date" class="form-control" id="fromDate"
+                formControlName="fromDate"
+                [class.is-invalid]="addLeavesForm.get('fromDate')?.invalid && addLeavesForm.get('fromDate')?.touched">
             </div>
 
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" class="form-control" name="toDate" id="toDate"
-                [(ngModel)]="leaves.toDate" #toDate="ngModel"
-                [class.is-invalid]="toDate.invalid && toDate.touched" required>
+              <input type="date" class="form-control" id="toDate"
+                formControlName="toDate"
+                [class.is-invalid]="addLeavesForm.get('toDate')?.invalid && addLeavesForm.get('toDate')?.touched">
             </div>
           </div>
 
           <div class="form-group">
             <label for="leaveResone">Leave Reason</label>
-            <input type="text" class="form-control" name="leaveResone" id="leaveResone"
-              [(ngModel)]="leaves.leaveResone" #leaveResone="ngModel"
-              [class.is-invalid]="leaveResone.invalid && leaveResone.touched" required
+            <input type="text" class="form-control" id="leaveResone"
+              formControlName="leaveResone"
+              [class.is-invalid]="addLeavesForm.get('leaveResone')?.invalid && addLeavesForm.get('leaveResone')?.touched"
               placeholder="Specify reason for leave">
           </div>
 
           <div class="form-group">
             <label for="description">Description (Optional)</label>
-            <textarea class="form-control" name="description" id="description"
-              [(ngModel)]="leaves.description" #description="ngModel"
+            <textarea class="form-control" id="description"
+              formControlName="description"
               placeholder="Add any additional details"
               rows="4"></textarea>
           </div>
 
           <div class="form-actions">
-            <button type="button" class="btn btn-secondary" routerLink="/leavesreport">
+            <button type="button" class="btn btn-secondary" routerLink="/dashboard">
               <i class="fas fa-times"></i> Cancel
             </button>
             <button type="submit" class="btn btn-primary"
-              [disabled]="editleavesform.form.invalid">
-              <i class="fas fa-save"></i> Update Leave
+              [disabled]="addLeavesForm.invalid">
+              <i class="fas fa-check"></i> Add Leave
             </button>
           </div>
         </form>

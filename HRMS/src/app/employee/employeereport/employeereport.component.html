@@ -1,52 +1,6 @@
 <div class="app-wrapper">
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo">
-        <i class="fas fa-users"></i>
-      </div>
-      <h2>HRMS</h2>
-      <p>Human Resource Management</p>
-    </div>
-
-    <nav class="sidebar-menu">
-      <a routerLink="/dashboard" class="menu-item">
-        <i class="fas fa-chart-line"></i>
-        <span>Dashboard</span>
-      </a>
-      <a routerLink="/employeereport" class="menu-item active">
-        <i class="fas fa-users"></i>
-        <span>Employee Report</span>
-      </a>
-      <div class="menu-divider"></div>
-      <a routerLink="/leavesreport" class="menu-item">
-        <i class="fas fa-calendar"></i>
-        <span>Leave Report</span>
-      </a>
-      <a routerLink="/addleaves" class="menu-item">
-        <i class="fas fa-calendar-plus"></i>
-        <span>Add Leave</span>
-      </a>
-      <div class="menu-divider"></div>
-      <a routerLink="/salaryreport" class="menu-item">
-        <i class="fas fa-money-bill-wave"></i>
-        <span>Salary Report</span>
-      </a>
-      <a routerLink="/addsalary" class="menu-item">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <span>Add Salary</span>
-      </a>
-      <div class="menu-divider"></div>
-      <a routerLink="/addhr" class="menu-item">
-        <i class="fas fa-user-tie"></i>
-        <span>Add HR</span>
-      </a>
-      <a routerLink="" class="menu-item logout">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-      </a>
-    </nav>
-  </aside>
+  <app-menu active="employeereport"></app-menu>
 
   <!-- Main Content -->
   <main class="main-content">
@@ -56,56 +10,10 @@
           <h1>Employee Report</h1>
           <p>Manage and view all employees</p>
         </div>
-        <button (click)="openAddModal()" class="btn btn-primary add-new-btn">
-          <i class="fas fa-plus"></i> Add New Employee
-        </button>
       </div>
     </div>
 
     <div class="report-container">
-      <!-- Search Criteria -->
-      <div class="search-container">
-        <h3>Search Employees</h3>
-        <form class="search-form">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="searchFirstName">First Name</label>
-              <input type="text" class="form-control" id="searchFirstName"
-                [(ngModel)]="searchCriteria.firstName" name="firstName"
-                placeholder="Search by first name">
-            </div>
-            <div class="form-group">
-              <label for="searchLastName">Last Name</label>
-              <input type="text" class="form-control" id="searchLastName"
-                [(ngModel)]="searchCriteria.lastName" name="lastName"
-                placeholder="Search by last name">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="searchDepartment">Department</label>
-              <input type="text" class="form-control" id="searchDepartment"
-                [(ngModel)]="searchCriteria.department" name="department"
-                placeholder="Search by department">
-            </div>
-            <div class="form-group">
-              <label for="searchEmail">Email</label>
-              <input type="email" class="form-control" id="searchEmail"
-                [(ngModel)]="searchCriteria.email" name="email"
-                placeholder="Search by email">
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-secondary" (click)="searchEmployees()">
-              <i class="fas fa-search"></i> Search
-            </button>
-            <button type="button" class="btn btn-outline-secondary" (click)="filteredEmployees = employee; searchCriteria = {firstName: '', lastName: '', department: '', email: ''}">
-              <i class="fas fa-times"></i> Clear
-            </button>
-          </div>
-        </form>
-      </div>
-
       <div class="table-wrapper">
         <table class="table">
           <thead>
@@ -161,7 +69,7 @@
           <button type="button" class="close-btn" (click)="closeAddModal()">&times;</button>
         </div>
         <div class="modal-body">
-          <form #addemployeeform="ngForm" (ngSubmit)="addEmployee()">
+          <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
             <div *ngIf="addNotAvailable" class="alert alert-success">
               <i class="fas fa-check-circle"></i>
               <span>{{addMsg}}</span>
@@ -174,35 +82,34 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="add_fname">First Name</label>
-                <input type="text" class="form-control" name="fname" id="add_fname"
-                  [(ngModel)]="newEmployee.firstName" #fname="ngModel"
-                  [class.is-invalid]="fname.invalid && fname.touched" required>
+                <input type="text" class="form-control" id="add_fname"
+                  formControlName="firstName"
+                  [class.is-invalid]="addEmployeeForm.get('firstName')?.invalid && addEmployeeForm.get('firstName')?.touched">
               </div>
               <div class="form-group">
                 <label for="add_lname">Last Name</label>
-                <input type="text" class="form-control" name="lname" id="add_lname"
-                  [(ngModel)]="newEmployee.lastName" #lname="ngModel"
-                  [class.is-invalid]="lname.invalid && lname.touched" required>
+                <input type="text" class="form-control" id="add_lname"
+                  formControlName="lastName"
+                  [class.is-invalid]="addEmployeeForm.get('lastName')?.invalid && addEmployeeForm.get('lastName')?.touched">
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="add_email">Email</label>
-                <input type="email" class="form-control" name="email" id="add_email"
-                  [(ngModel)]="newEmployee.email" #email="ngModel"
-                  [class.is-invalid]="email.invalid && email.touched" required
-                  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                <div *ngIf="email.errors && (email.invalid && email.touched)">
-                  <small class="text-danger" *ngIf="email.errors?.['required']">Email is required</small>
-                  <small class="text-danger" *ngIf="email.errors?.['pattern']">Enter a valid email</small>
+                <input type="email" class="form-control" id="add_email"
+                  formControlName="email"
+                  [class.is-invalid]="addEmployeeForm.get('email')?.invalid && addEmployeeForm.get('email')?.touched">
+                <div *ngIf="addEmployeeForm.get('email')?.invalid && addEmployeeForm.get('email')?.touched">
+                  <small class="text-danger" *ngIf="addEmployeeForm.get('email')?.errors?.['required']">Email is required</small>
+                  <small class="text-danger" *ngIf="addEmployeeForm.get('email')?.errors?.['pattern']">Enter a valid email</small>
                 </div>
               </div>
               <div class="form-group">
                 <label for="add_mobile">Mobile</label>
-                <input type="text" class="form-control" name="mobile" id="add_mobile"
-                  [(ngModel)]="newEmployee.mobile" #mobile="ngModel"
-                  [class.is-invalid]="mobile.invalid && mobile.touched" required
+                <input type="text" class="form-control" id="add_mobile"
+                  formControlName="mobile"
+                  [class.is-invalid]="addEmployeeForm.get('mobile')?.invalid && addEmployeeForm.get('mobile')?.touched"
                   placeholder="Enter mobile number">
               </div>
             </div>
@@ -210,9 +117,9 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="add_department">Department</label>
-                <select name="department" id="add_department" class="form-control"
-                  [(ngModel)]="newEmployee.department" #department="ngModel"
-                  [class.is-invalid]="department.invalid && department.touched" required>
+                <select id="add_department" class="form-control"
+                  formControlName="department"
+                  [class.is-invalid]="addEmployeeForm.get('department')?.invalid && addEmployeeForm.get('department')?.touched">
                   <option value="" selected hidden>Choose Department</option>
                   <option value="IT Services">IT Services</option>
                   <option value="Product Development">Product Development</option>
@@ -225,9 +132,9 @@
               </div>
               <div class="form-group">
                 <label for="add_gender">Gender</label>
-                <select name="gender" id="add_gender" class="form-control"
-                  [(ngModel)]="newEmployee.gender" #gender="ngModel"
-                  [class.is-invalid]="gender.invalid && gender.touched" required>
+                <select id="add_gender" class="form-control"
+                  formControlName="gender"
+                  [class.is-invalid]="addEmployeeForm.get('gender')?.invalid && addEmployeeForm.get('gender')?.touched">
                   <option value="" selected hidden>Choose Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -238,16 +145,16 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="add_fullAddress">Full Address</label>
-                <input type="text" class="form-control" name="fullAddress" id="add_fullAddress"
-                  [(ngModel)]="newEmployee.fullAddress" #fullAddress="ngModel"
-                  [class.is-invalid]="fullAddress.invalid && fullAddress.touched" required
+                <input type="text" class="form-control" id="add_fullAddress"
+                  formControlName="fullAddress"
+                  [class.is-invalid]="addEmployeeForm.get('fullAddress')?.invalid && addEmployeeForm.get('fullAddress')?.touched"
                   placeholder="Enter full address">
               </div>
               <div class="form-group">
                 <label for="add_city">City</label>
-                <input type="text" class="form-control" name="city" id="add_city"
-                  [(ngModel)]="newEmployee.city" #city="ngModel"
-                  [class.is-invalid]="city.invalid && city.touched" required
+                <input type="text" class="form-control" id="add_city"
+                  formControlName="city"
+                  [class.is-invalid]="addEmployeeForm.get('city')?.invalid && addEmployeeForm.get('city')?.touched"
                   placeholder="Enter city">
               </div>
             </div>
@@ -255,16 +162,16 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="add_state">State</label>
-                <input type="text" class="form-control" name="state" id="add_state"
-                  [(ngModel)]="newEmployee.state" #state="ngModel"
-                  [class.is-invalid]="state.invalid && state.touched" required
+                <input type="text" class="form-control" id="add_state"
+                  formControlName="state"
+                  [class.is-invalid]="addEmployeeForm.get('state')?.invalid && addEmployeeForm.get('state')?.touched"
                   placeholder="Enter state">
               </div>
               <div class="form-group">
                 <label for="add_country">Country</label>
-                <input type="text" class="form-control" name="country" id="add_country"
-                  [(ngModel)]="newEmployee.country" #country="ngModel"
-                  [class.is-invalid]="country.invalid && country.touched" required
+                <input type="text" class="form-control" id="add_country"
+                  formControlName="country"
+                  [class.is-invalid]="addEmployeeForm.get('country')?.invalid && addEmployeeForm.get('country')?.touched"
                   placeholder="Enter country">
               </div>
             </div>
@@ -274,7 +181,7 @@
                 <i class="fas fa-times"></i> Cancel
               </button>
               <button type="submit" class="btn btn-primary"
-                [disabled]="addemployeeform.form.invalid">
+                [disabled]="addEmployeeForm.invalid">
                 <i class="fas fa-save"></i> Add Employee
               </button>
             </div>
@@ -291,7 +198,7 @@
           <button type="button" class="close-btn" (click)="closeEditModal()">&times;</button>
         </div>
         <div class="modal-body">
-          <form #editemployeeform="ngForm" (ngSubmit)="editEmployeeSubmit()">
+          <form [formGroup]="editEmployeeForm" (ngSubmit)="editEmployeeSubmit()">
             <div *ngIf="editNotAvailable" class="alert alert-success">
               <i class="fas fa-check-circle"></i>
               <span>{{editMsg}}</span>
@@ -304,43 +211,43 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="edit_id">ID</label>
-                <input type="text" class="form-control" name="id" id="edit_id"
-                  [(ngModel)]="editEmployee.id" readonly>
+                <input type="text" class="form-control" id="edit_id"
+                  formControlName="id" readonly>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="edit_fname">First Name</label>
-                <input type="text" class="form-control" name="fname" id="edit_fname"
-                  [(ngModel)]="editEmployee.firstName" #fname="ngModel"
-                  [class.is-invalid]="fname.invalid && fname.touched" required>
+                <input type="text" class="form-control" id="edit_fname"
+                  formControlName="firstName"
+                  [class.is-invalid]="editEmployeeForm.get('firstName')?.invalid && editEmployeeForm.get('firstName')?.touched">
               </div>
               <div class="form-group">
                 <label for="edit_lname">Last Name</label>
-                <input type="text" class="form-control" name="lname" id="edit_lname"
-                  [(ngModel)]="editEmployee.lastName" #lname="ngModel"
-                  [class.is-invalid]="lname.invalid && lname.touched" required>
+                <input type="text" class="form-control" id="edit_lname"
+                  formControlName="lastName"
+                  [class.is-invalid]="editEmployeeForm.get('lastName')?.invalid && editEmployeeForm.get('lastName')?.touched">
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="edit_email">Email</label>
-                <input type="email" class="form-control" name="email" id="edit_email"
-                  [(ngModel)]="editEmployee.email" #email="ngModel"
-                  [class.is-invalid]="email.invalid && email.touched" required
+                <input type="email" class="form-control" id="edit_email"
+                  formControlName="email"
+                  [class.is-invalid]="editEmployeeForm.get('email')?.invalid && editEmployeeForm.get('email')?.touched"
                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                <div *ngIf="email.errors && (email.invalid && email.touched)">
-                  <small class="text-danger" *ngIf="email.errors?.['required']">Email is required</small>
-                  <small class="text-danger" *ngIf="email.errors?.['pattern']">Enter a valid email</small>
+                <div *ngIf="editEmployeeForm.get('email')?.invalid && editEmployeeForm.get('email')?.touched">
+                  <small class="text-danger" *ngIf="editEmployeeForm.get('email')?.errors?.['required']">Email is required</small>
+                  <small class="text-danger" *ngIf="editEmployeeForm.get('email')?.errors?.['pattern']">Enter a valid email</small>
                 </div>
               </div>
               <div class="form-group">
                 <label for="edit_mobile">Mobile</label>
-                <input type="text" class="form-control" name="mobile" id="edit_mobile"
-                  [(ngModel)]="editEmployee.mobile" #mobile="ngModel"
-                  [class.is-invalid]="mobile.invalid && mobile.touched" required
+                <input type="text" class="form-control" id="edit_mobile"
+                  formControlName="mobile"
+                  [class.is-invalid]="editEmployeeForm.get('mobile')?.invalid && editEmployeeForm.get('mobile')?.touched"
                   placeholder="Enter mobile number">
               </div>
             </div>
@@ -348,9 +255,9 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="edit_department">Department</label>
-                <select name="department" id="edit_department" class="form-control"
-                  [(ngModel)]="editEmployee.department" #department="ngModel"
-                  [class.is-invalid]="department.invalid && department.touched" required>
+                <select id="edit_department" class="form-control"
+                  formControlName="department"
+                  [class.is-invalid]="editEmployeeForm.get('department')?.invalid && editEmployeeForm.get('department')?.touched">
                   <option value="" selected hidden>Choose Department</option>
                   <option value="IT Services">IT Services</option>
                   <option value="Product Development">Product Development</option>
@@ -363,9 +270,9 @@
               </div>
               <div class="form-group">
                 <label for="edit_gender">Gender</label>
-                <select name="gender" id="edit_gender" class="form-control"
-                  [(ngModel)]="editEmployee.gender" #gender="ngModel"
-                  [class.is-invalid]="gender.invalid && gender.touched" required>
+                <select id="edit_gender" class="form-control"
+                  formControlName="gender"
+                  [class.is-invalid]="editEmployeeForm.get('gender')?.invalid && editEmployeeForm.get('gender')?.touched">
                   <option value="" selected hidden>Choose Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -376,16 +283,16 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="edit_fullAddress">Full Address</label>
-                <input type="text" class="form-control" name="fullAddress" id="edit_fullAddress"
-                  [(ngModel)]="editEmployee.fullAddress" #fullAddress="ngModel"
-                  [class.is-invalid]="fullAddress.invalid && fullAddress.touched" required
+                <input type="text" class="form-control" id="edit_fullAddress"
+                  formControlName="fullAddress"
+                  [class.is-invalid]="editEmployeeForm.get('fullAddress')?.invalid && editEmployeeForm.get('fullAddress')?.touched"
                   placeholder="Enter full address">
               </div>
               <div class="form-group">
                 <label for="edit_city">City</label>
-                <input type="text" class="form-control" name="city" id="edit_city"
-                  [(ngModel)]="editEmployee.city" #city="ngModel"
-                  [class.is-invalid]="city.invalid && city.touched" required
+                <input type="text" class="form-control" id="edit_city"
+                  formControlName="city"
+                  [class.is-invalid]="editEmployeeForm.get('city')?.invalid && editEmployeeForm.get('city')?.touched"
                   placeholder="Enter city">
               </div>
             </div>
@@ -393,16 +300,16 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="edit_state">State</label>
-                <input type="text" class="form-control" name="state" id="edit_state"
-                  [(ngModel)]="editEmployee.state" #state="ngModel"
-                  [class.is-invalid]="state.invalid && state.touched" required
+                <input type="text" class="form-control" id="edit_state"
+                  formControlName="state"
+                  [class.is-invalid]="editEmployeeForm.get('state')?.invalid && editEmployeeForm.get('state')?.touched"
                   placeholder="Enter state">
               </div>
               <div class="form-group">
                 <label for="edit_country">Country</label>
-                <input type="text" class="form-control" name="country" id="edit_country"
-                  [(ngModel)]="editEmployee.country" #country="ngModel"
-                  [class.is-invalid]="country.invalid && country.touched" required
+                <input type="text" class="form-control" id="edit_country"
+                  formControlName="country"
+                  [class.is-invalid]="editEmployeeForm.get('country')?.invalid && editEmployeeForm.get('country')?.touched"
                   placeholder="Enter country">
               </div>
             </div>
@@ -412,7 +319,7 @@
                 <i class="fas fa-times"></i> Cancel
               </button>
               <button type="submit" class="btn btn-primary"
-                [disabled]="editemployeeform.form.invalid">
+                [disabled]="editEmployeeForm.invalid">
                 <i class="fas fa-save"></i> Update Employee
               </button>
             </div>
